@@ -4,5 +4,5 @@ export default defineConfig({
   output: "static",
   prefetch: true,
   compressHTML: true,
-  site: 'https://nikankad.com',
+  site: 'https://nikankad.github.io',
 });

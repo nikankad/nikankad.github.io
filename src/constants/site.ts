@@ -4,7 +4,7 @@ export type NavigationItem = {
 };
 
 export const SITE = {
-    name: "ByteKai",
+    name: "Nikan",
     title: "Software Engineer & Curious Tinkerer",
     description: "Personal portfolio and blog",
     url: "https://bytekai.dev",
