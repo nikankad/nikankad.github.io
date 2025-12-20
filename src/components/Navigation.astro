@@ -74,8 +74,11 @@ const isActive = (path: string) => {
     position: sticky;
     top: 0;
     background: var(--background);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     z-index: 10;
     padding: 1rem 0;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.1);
   }
 
   .nav-links {
