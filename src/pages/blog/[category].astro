@@ -1,0 +1,58 @@
+---
+import ArticleCard from "../../components/ui/ArticleCard.astro";
+import { getCollection } from "astro:content";
+import type { GetStaticPaths } from "astro";
+import type { CollectionEntry } from "astro:content";
+import BaseLayout from "../../components/layout/BaseLayout.astro";
+import Categories from "../../components/shared/Categories.astro";
+import BaseHero from "../../components/shared/BaseHero.astro";
+import Container from "../../components/ui/Container.astro";
+
+type Blog = CollectionEntry<"blog">;
+
+export const getStaticPaths = (async () => {
+  const allPosts = await getCollection("blog");
+  const filteredPosts = allPosts.filter((post: Blog) => (import.meta.env.PROD ? !post.data.draft : true));
+
+  const allCategories: string[] = Array.from(
+    new Set(filteredPosts.flatMap((post: Blog) => post.data.tags ?? []))
+  );
+
+  return allCategories.map((categoryPath) => {
+    const categoryPosts = filteredPosts.filter((post: Blog) => (post.data.tags ?? []).includes(categoryPath));
+
+    return {
+      params: { category: categoryPath },
+      props: { categoryPosts, allCategories },
+    };
+  });
+}) satisfies GetStaticPaths;
+
+const { categoryPosts, allCategories } = Astro.props;
+
+const sortedPosts = categoryPosts.sort(
+  (a: Blog, b: Blog) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime()
+);
+---
+
+<BaseLayout title="Blog" description="Read my latest blog posts">
+  <main>
+    <Container>
+      <BaseHero title="Blog" description="Read my latest blog posts" />
+      <Categories categories={allCategories} currentPath={Astro.url.pathname} basePath="blog" />
+
+      <div class="content-list">
+        {
+          sortedPosts.map((post: Blog) => (
+            <ArticleCard
+              title={post.data.title}
+              description={post.data.description}
+              url={`/blog/${post.id}`}
+              date={post.data.publishedAt}
+            />
+          ))
+        }
+      </div>
+    </Container>
+  </main>
+</BaseLayout>

@@ -1,11 +1,11 @@
 {
   "home": {
     "name": "Nikan",
-    "title": "Software Engineer & Curious Tinkerer",
-    "introduction": "I’m constantly learning and evolving. I love diving into new ideas and finding creative ways to solve problems.",
+    "title": "Software Engineer",
+    "introduction": "",
     "sections": {
       "blog": {
-        "title": "Writing",
+        "title": "Blog",
         "viewAllText": "View all posts"
       },
       "projects": {
@@ -20,11 +20,11 @@
     "socialLinks": [
       {
         "platform": "GitHub",
-        "url": "https://github.com/bytekai"
+        "url": "https://github.com/nikankad"
       },
       {
-        "platform": "Twitter",
-        "url": "https://x.com/byteekai"
+        "platform": "Email",
+        "url": "mailto:nikan.nik@gmail.com"
       }
     ]
   }

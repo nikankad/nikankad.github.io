@@ -44,7 +44,10 @@ const featuredProjects = projects.filter((project: CollectionEntry<"projects">) 
 <BaseLayout title={`${site.name} - Portfolio`} description={site.introduction}>
   <Container>
     <section class="hero">
-      <h1>{site.name}</h1>
+      <div class="hero-header">
+        <!-- <img src="/images/companies/fish.png" alt="Profile image" class="hero-image" /> -->
+        <h1>{site.name}</h1>
+      </div>
       <p class="subtitle">{site.title}</p>
       <p class="introduction">{site.introduction}</p>
       {
@@ -146,23 +149,39 @@ const featuredProjects = projects.filter((project: CollectionEntry<"projects">) 
   }
 
   .hero {
-    padding: 4rem 0;
+    padding: 1rem 5;
+  }
+
+  .hero-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .hero-image {
+    width: 87px;
+    /* height: 120px;  */
+    /* border-radius: 50%; */
+    object-fit: cover;
+    margin-bottom: 0;
+    flex-shrink: 0;
   }
 
   .introduction {
     margin: 1.5rem 0;
     opacity: 0.9;
   }
-
+ 
   .section {
-    margin: 4rem 0;
-  }
+        margin: 4rem 0;
+  } 
 
   .section-header {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-bottom: 2rem;
+    margin-top: -3rem;
+    margin-bottom: 1rem ;
     opacity: 0.7;
   }
 
@@ -206,7 +225,7 @@ const featuredProjects = projects.filter((project: CollectionEntry<"projects">) 
   .social-links {
     display: flex;
     gap: 1rem;
-    margin-top: 2rem;
+    margin-top: 0rem;
     opacity: 0.7;
   }
 
@@ -216,7 +235,7 @@ const featuredProjects = projects.filter((project: CollectionEntry<"projects">) 
     }
 
     .hero {
-      padding: 3rem 0;
+      padding: 1rem 0;
     }
 
     .container {
