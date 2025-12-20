@@ -44,43 +44,27 @@ const featuredProjects = projects.filter((project: CollectionEntry<"projects">) 
 <BaseLayout title={`${site.name} - Portfolio`} description={site.introduction}>
   <Container>
     <section class="hero">
-      <h1>{site.name}</h1>
-      <p class="subtitle">{site.title}</p>
-      <p class="introduction">{site.introduction}</p>
-      {
-        site.socialLinks && (
-          <div class="social-links">
-            {site.socialLinks.map(({ platform, url }) => (
-              <a href={url} target="_blank" rel="noopener noreferrer">
-                {platform}
-              </a>
-            ))}
-          </div>
-        )
-      }
-    </section>
-
-    <Section>
-      <div class="section-header">
-        <h2>{site.sections.blog.title}</h2>
-        <a href="/blog">{site.sections.blog.viewAllText}</a>
+      <div class="hero-header">
+        <!-- <img src="/images/companies/fish.png" alt="Profile image" class="hero-image" /> -->
+        <h1>{site.name}        <p class="degree-subtitle">BSCS '26</p>
+</h1>
       </div>
-      <ContentList>
+      <div class="title-and-links">
+        <p class="subtitle">{site.title}</p>
         {
-          latestPosts.map((post) => (
-            <article>
-              <div class="title-row">
-                <a href={`/blog/${post.id}`}>{post.data.title}</a>
-                {post.data.publishedAt && (
-                  <time datetime={post.data.publishedAt.toISOString()}>{formatDate(post.data.publishedAt)}</time>
-                )}
-              </div>
-              <p class="muted-text">{post.data.description}</p>
-            </article>
-          ))
+          site.socialLinks && (
+            <div class="social-links">
+              {site.socialLinks.map(({ platform, url }) => (
+                <a href={url} target="_blank" rel="noopener noreferrer">
+                  {platform}
+                </a>
+              ))}
+            </div>
+          )
         }
-      </ContentList>
-    </Section>
+      </div>
+      <!-- <p class="introduction">{site.introduction}</p> -->
+    </section>
 
     <section class="section">
       <div class="section-header">
@@ -109,6 +93,28 @@ const featuredProjects = projects.filter((project: CollectionEntry<"projects">) 
         }
       </ContentList>
     </section>
+
+    <Section>
+      <div class="section-header">
+        <h2>{site.sections.blog.title}</h2>
+        <a href="/blog">{site.sections.blog.viewAllText}</a>
+      </div>
+      <ContentList>
+        {
+          latestPosts.map((post) => (
+            <article>
+              <div class="title-row">
+                <a href={`/blog/${post.id}`}>{post.data.title}</a>
+                {post.data.publishedAt && (
+                  <time datetime={post.data.publishedAt.toISOString()}>{formatDate(post.data.publishedAt)}</time>
+                )}
+              </div>
+              <p class="muted-text">{post.data.description}</p>
+            </article>
+          ))
+        }
+      </ContentList>
+    </Section>
 
     <section class="section">
       <div class="section-header">
@@ -146,23 +152,39 @@ const featuredProjects = projects.filter((project: CollectionEntry<"projects">) 
   }
 
   .hero {
-    padding: 4rem 0;
+    padding: 1rem 5;
+  }
+
+  .hero-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .hero-image {
+    width: 87px;
+    /* height: 120px;  */
+    /* border-radius: 50%; */
+    object-fit: cover;
+    margin-bottom: 0;
+    flex-shrink: 0;
   }
 
   .introduction {
     margin: 1.5rem 0;
     opacity: 0.9;
   }
-
+ 
   .section {
-    margin: 4rem 0;
-  }
+        margin: 4rem 0;
+  } 
 
   .section-header {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-bottom: 2rem;
+    margin-top: -3rem;
+    margin-bottom: 1rem ;
     opacity: 0.7;
   }
 
@@ -203,10 +225,17 @@ const featuredProjects = projects.filter((project: CollectionEntry<"projects">) 
     opacity: 0.5;
   }
 
+  .title-and-links {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
   .social-links {
     display: flex;
     gap: 1rem;
-    margin-top: 2rem;
     opacity: 0.7;
   }
 
@@ -216,11 +245,19 @@ const featuredProjects = projects.filter((project: CollectionEntry<"projects">) 
     }
 
     .hero {
-      padding: 3rem 0;
+      padding: 1rem 0;
     }
 
     .container {
       padding: 0 1rem;
     }
   }
+  .degree-subtitle {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  font-weight: 20;
+  margin-bottom: -1.3rem;
+  opacity: 0.54;
+}
+
 </style>
