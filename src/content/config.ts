@@ -61,7 +61,7 @@ const site = defineCollection({
             }),
             experience: z.object({
                 title: z.string(),
-                viewAllText: z.string(),
+                viewAllText: z.string().optional(),
             }),
         }),
         socialLinks: z.array(z.object({
