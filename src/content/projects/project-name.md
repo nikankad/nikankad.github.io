@@ -1,7 +1,7 @@
 ---
-title: "DevFlow - Developer Q&A Platform"
-description: "A modern Stack Overflow alternative built with Next.js 13, TypeScript, and MongoDB. Features real-time updates, AI-powered answer suggestions, and a responsive design."
-url: "https://devflow-demo.vercel.app"
+title: "NEAT-games"
+description: "AI agents trained using NEAT (NeuroEvolution of Augmenting Topologies) to play Flappy Bird and balance an inverted pendulum. Demonstrates neural network evolution and game AI."
+url: "https://github.com/nikankad/NEAT-games"
 featured: true
-techs: ["Next.js", "TypeScript", "MongoDB", "TailwindCSS", "OpenAI"]
+techs: ["Python", "NEAT", "Pygame", "Neural Networks", "AI"]
 --- 
