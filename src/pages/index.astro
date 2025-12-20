@@ -50,9 +50,11 @@ const featuredProjects = projects.filter((project: CollectionEntry<"projects">) 
   <Container>
     <section class="hero">
       <div class="hero-header">
-        <!-- <img src="/images/companies/fish.png" alt="Profile image" class="hero-image" /> -->
-        <h1>{site.name}        <p class="degree-subtitle">BSCS '26</p>
+        <div class="name-container">
+          <h1>{site.name}        <p class="degree-subtitle">BSCS '26</p>
 </h1>
+        </div>
+        <img src="/images/companies/fish.jpg" alt="Profile image" class="hero-image" />
       </div>
       <div class="title-and-links">
         <p class="subtitle">{site.title}</p>
@@ -99,28 +101,6 @@ const featuredProjects = projects.filter((project: CollectionEntry<"projects">) 
       </ContentList>
     </section>
 
-    <Section>
-      <div class="section-header">
-        <h2>{site.sections.blog.title}</h2>
-        <a href="/blog">{site.sections.blog.viewAllText}</a>
-      </div>
-      <ContentList>
-        {
-          latestPosts.map((post) => (
-            <article>
-              <div class="title-row">
-                <a href={`/blog/${post.id}`}>{post.data.title}</a>
-                {post.data.publishedAt && (
-                  <time datetime={post.data.publishedAt.toISOString()}>{formatDate(post.data.publishedAt)}</time>
-                )}
-              </div>
-              <p class="muted-text">{post.data.description}</p>
-            </article>
-          ))
-        }
-      </ContentList>
-    </Section>
-
     <section class="section">
       <div class="section-header">
         <h2>{site.sections.experience.title}</h2>
@@ -161,8 +141,13 @@ const featuredProjects = projects.filter((project: CollectionEntry<"projects">) 
 
   .hero-header {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    justify-content: space-between;
     gap: 1rem;
+  }
+
+  .name-container {
+    flex: 1;
   }
 
   .hero-image {
@@ -263,5 +248,12 @@ const featuredProjects = projects.filter((project: CollectionEntry<"projects">) 
   margin-bottom: -1.3rem;
   opacity: 0.54;
 }
+
+  .hero-image {
+    border-radius: 50%;
+    width: 4rem;
+    height: 4rem;
+    object-fit: cover;
+  }
 
 </style>
