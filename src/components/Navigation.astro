@@ -3,6 +3,7 @@ import type { NavigationItem } from "../constants/site";
 import { NAVIGATION } from "../constants/site";
 
 const pathname = new URL(Astro.request.url).pathname;
+const showFish = pathname !== "/";
 
 const isActive = (path: string) => {
   if (path === "/") return pathname === "/";
@@ -28,6 +29,11 @@ const isActive = (path: string) => {
       ))
     }
   </div>
+  {showFish && (
+    <div class="nav-right">
+      <img src="/images/companies/fish.jpg" alt="Fish" class="nav-fish" loading="lazy" />
+    </div>
+  )}
 </nav>
 
 <script>
@@ -71,6 +77,7 @@ const isActive = (path: string) => {
   nav {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     position: sticky;
     top: 0;
     background: var(--background);
@@ -79,6 +86,7 @@ const isActive = (path: string) => {
     z-index: 10;
     padding: 1rem 0;
     border-bottom: 1px solid rgba(128, 128, 128, 0.1);
+    gap: 1rem;
   }
 
   .nav-links {
@@ -125,6 +133,18 @@ const isActive = (path: string) => {
 
   a.active::after {
     width: 100%;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-fish {
+    width: 2rem;
+    height: 2rem;
+    object-fit: cover;
+    border-radius: 50%;
   }
 
   .sr-only {

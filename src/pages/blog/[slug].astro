@@ -30,6 +30,15 @@ const formatDate = (date: Date) => {
       <time datetime={post.data.publishedAt.toISOString()}>
         {formatDate(post.data.publishedAt)}
       </time>
+      {
+        post.data.tags && (
+          <div class="tags">
+            {post.data.tags.map((tag) => (
+              <span class="tag">{tag}</span>
+            ))}
+          </div>
+        )
+      }
     </header>
     <div class="content">
       <Content />
@@ -60,6 +69,22 @@ const formatDate = (date: Date) => {
   time {
     color: var(--text-muted);
     font-size: var(--text-sm);
+  }
+
+  .tags {
+    margin-top: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 0.125rem 0.25rem;
+    background: var(--hover-bg);
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
   }
 
   .content {
