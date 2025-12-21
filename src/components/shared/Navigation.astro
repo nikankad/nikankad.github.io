@@ -1,6 +1,7 @@
 ---
 import { NAVIGATION } from "../../constants/navigation";
 const pathname = new URL(Astro.request.url).pathname;
+const showFish = pathname !== "/";
 
 const isActive = (path: string) => {
   if (path === "/") return pathname === "/";
@@ -18,12 +19,19 @@ const isActive = (path: string) => {
       ))
     }
   </div>
+  {showFish && (
+    <div class="nav-right">
+      <img src="/images/companies/fish.jpg" alt="Fish" class="nav-fish" loading="lazy" />
+    </div>
+  )}
 </nav>
 
 <style>
   nav {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    width: 100%;
   }
 
   .nav-links {
@@ -63,5 +71,18 @@ const isActive = (path: string) => {
     width: 100%;
     height: 1px;
     background: var(--text-muted);
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+  }
+
+  .nav-fish {
+    width: 2rem;
+    height: 2rem;
+    object-fit: cover;
+    border-radius: 50%;
   }
 </style>
