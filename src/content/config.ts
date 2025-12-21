@@ -21,6 +21,7 @@ const experience = defineCollection({
         base: "./src/content/experience"
     }),
     schema: z.object({
+        order: z.coerce.number().int().optional(),
         title: z.string(),
         logo: z.string(),
         description: z.string(),
