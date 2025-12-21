@@ -20,8 +20,8 @@ import { formatDate } from "../../utils/date";
   {
     tags && (
       <div class="tags">
-        {tags.map((tag) => (
-          <span>{tag}</span>
+        {tags.map((tag, index) => (
+          <span>{tag}{index < tags.length - 1 ? ', ' : ' '}</span>
         ))}
       </div>
     )
@@ -48,7 +48,7 @@ import { formatDate } from "../../utils/date";
 
   .tags {
     display: flex;
-    gap: 0.2rem;
+    gap: 0;
     margin-top: 0.5rem;
   }
 
