@@ -1,7 +1,8 @@
 ---
-title: "Cybersecurity Ambassador Program"
+order: 2
+title: "Silver Ambassador - Cybersecurity Ambassador Program"
 logo: "/images/companies/CyberAmb.jpg"
-description: "Promoted cybersecurity awareness and best practices across the organization. Conducted training sessions and workshops on security protocols."
-startDate: 2023-8-18
-endDate: 2024-8-27
+description: "Delivered a presentation on social media safety at Scarborough Library, emphasizing privacy and security best practices with interactive examples and Q&A."
+startDate: 2023-08-01
+endDate: 2024-08-31
 ---

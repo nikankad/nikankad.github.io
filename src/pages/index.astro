@@ -34,6 +34,10 @@ const latestPosts = posts
 const experiences = await getCollection("experience");
 const sortedExperiences = experiences.sort(
   (a: CollectionEntry<"experience">, b: CollectionEntry<"experience">) => {
+    const orderA = a.data.order ?? Number.POSITIVE_INFINITY;
+    const orderB = b.data.order ?? Number.POSITIVE_INFINITY;
+    if (orderA !== orderB) return orderA - orderB;
+
     // Show current roles first
     if (a.data.current && !b.data.current) return -1;
     if (!a.data.current && b.data.current) return 1;
