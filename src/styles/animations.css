@@ -35,11 +35,11 @@
 }
 
 .initial-load .animate-fade {
-  animation: fadeIn 0.5s var(--transition-base) both;
+  animation: fadeIn 0.3s var(--transition-base) both;
 }
 
 .initial-load .animate-slide-up {
-  animation: slideUpFade 0.5s var(--transition-base) both;
+  animation: slideUpFade 0.3s var(--transition-base) both;
 }
 
 .initial-load .animate-scale {

@@ -11,4 +11,9 @@ export default defineConfig({
     remarkPlugins: [remarkMath],
     rehypePlugins: [rehypeKatex],
   },
+  vite: {
+    ssr: {
+      external: ['rehype-katex']
+    }
+  }
 });

@@ -4,6 +4,19 @@
   inherits: false;
 }
 
+/* Disable View Transitions animation for faster perceived speed */
+::view-transition {
+  animation: none;
+}
+
+::view-transition-old(root) {
+  animation: none;
+}
+
+::view-transition-new(root) {
+  animation: none;
+}
+
 :root {
   --font-primary: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-mono: "Roboto Mono", Consolas, "Courier New", monospace;
