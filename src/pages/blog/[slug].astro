@@ -23,7 +23,7 @@ const formatDate = (date: Date) => {
 };
 ---
 
-<BaseLayout title={post.data.title} description={post.data.description}>
+<BaseLayout title={post.data.title} description={post.data.description} includeKatex={true}>
   <article class="post">
     <header>
       <h1>{post.data.title}</h1>
