@@ -20,7 +20,7 @@ const categories = [...new Set(posts.flatMap((post) => post.data.tags ?? []))];
 
 <BaseLayout title="Blog" description="Read my latest blog posts" includeKatex={true}>
   <Container>
-    <BaseHero title="Blog" description="Read my latest blog posts" />
+    <BaseHero title="Blog" description="" />
     <Categories categories={categories} currentPath={Astro.url.pathname} basePath="blog" />
     <ContentList>
       {
