@@ -12,7 +12,6 @@ import interLightWoff2 from "@fontsource/inter/files/inter-latin-300-normal.woff
 import interRegularWoff2 from "@fontsource/inter/files/inter-latin-400-normal.woff2?url";
 import interMediumWoff2 from "@fontsource/inter/files/inter-latin-500-normal.woff2?url";
 import robotoMonoRegularWoff2 from "@fontsource/roboto-mono/files/roboto-mono-latin-400-normal.woff2?url";
-import { ClientRouter } from "astro:transitions";
 import Navigation from "../shared/Navigation.astro";
 
 interface Props {
@@ -20,9 +19,10 @@ interface Props {
   description: string;
   image?: string;
   canonicalURL?: string;
+  includeKatex?: boolean;
 }
 
-const { title, description, image = "/default-og-image.jpg", canonicalURL = Astro.url } = Astro.props;
+const { title, description, image = "/default-og-image.jpg", canonicalURL = Astro.url, includeKatex = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -55,16 +55,18 @@ const { title, description, image = "/default-og-image.jpg", canonicalURL = Astr
 
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
-    <ClientRouter />
+    {includeKatex && (
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
+        integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV"
+        crossorigin="anonymous"
+        fetchpriority="low"
+      />
+    )}
     <script is:inline>
       // Always use dark theme
       document.documentElement.setAttribute("data-theme", "dark");
-
-      // Handle theme persistence during view transitions
-      document.addEventListener("astro:before-swap", (ev) => {
-        ev.newDocument.documentElement.setAttribute("data-theme", "dark");
-      });
 
       // Add initial-load class
       document.addEventListener("DOMContentLoaded", () => {
@@ -73,7 +75,7 @@ const { title, description, image = "/default-og-image.jpg", canonicalURL = Astr
         setTimeout(() => {
           document.body.classList.remove("initial-load");
           document.documentElement.classList.add("theme-transition");
-        }, 150);
+        }, 1000);
       });
     </script>
   </head>
