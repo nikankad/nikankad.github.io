@@ -35,10 +35,10 @@ const sortedPosts = categoryPosts.sort(
 );
 ---
 
-<BaseLayout title="Blog" description="Read my latest blog posts" includeKatex={true}>
+<BaseLayout title="Blog" description="" includeKatex={true}>
   <main>
     <Container>
-      <BaseHero title="Blog" description="Read my latest blog posts" />
+      <BaseHero title="Blog" description="" />
       <Categories categories={allCategories} currentPath={Astro.url.pathname} basePath="blog" />
 
       <div class="content-list">
