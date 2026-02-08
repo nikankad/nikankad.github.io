@@ -127,12 +127,15 @@ const featuredProjects = projects.filter((project: CollectionEntry<"projects">) 
           ))
         }
       </div>
+      <div class="section-footer">
+        <a href="/experiences">and more</a>
+      </div>
     </section>
 
     <section class="section email-section">
       <div class="email-container">
         <h2>Get in Touch</h2>
-        <p class="muted-text">Feel free to reach out for collaborations or just a friendly chat.</p>
+        <p class="muted-text">Feel free to reach out!</p>
         <a href="mailto:nikan.nik@gmail.com" class="email-button">
           Email Me
         </a>
@@ -301,6 +304,21 @@ const featuredProjects = projects.filter((project: CollectionEntry<"projects">) 
 
   .email-button:hover {
     opacity: 0.8;
+  }
+
+  .section-footer {
+    margin-top: 2rem;
+    font-size: var(--text-sm);
+  }
+
+  .section-footer a {
+    text-decoration: none;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+  }
+
+  .section-footer a:hover {
+    opacity: 0.7;
   }
 
 </style>
