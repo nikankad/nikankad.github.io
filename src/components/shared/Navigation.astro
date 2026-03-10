@@ -1,7 +1,12 @@
 ---
 import { NAVIGATION } from "../../constants/navigation";
+import { getEntry } from "astro:content";
+
 const pathname = new URL(Astro.request.url).pathname;
 const showFish = pathname !== "/";
+
+const siteConfig = await getEntry("site", "home");
+const githubUrl = siteConfig?.data.socialLinks.find(link => link.platform === "GitHub")?.url;
 
 const isActive = (path: string) => {
   if (path === "/") return pathname === "/";
@@ -21,7 +26,9 @@ const isActive = (path: string) => {
   </div>
   {showFish && (
     <div class="nav-right">
-      <img src="/images/companies/low/fish.jpg" alt="Fish" class="nav-fish" loading="lazy" decoding="async" fetchpriority="low" />
+      <a href={githubUrl} target="_blank" rel="noopener noreferrer">
+        <img src="/images/companies/low/fish.jpg" alt="Fish" class="nav-fish" loading="lazy" decoding="async" fetchpriority="low" />
+      </a>
     </div>
   )}
 </nav>
@@ -77,6 +84,10 @@ const isActive = (path: string) => {
     display: flex;
     align-items: center;
     margin-left: auto;
+  }
+
+  .nav-right a {
+    cursor: pointer;
   }
 
   .nav-fish {
