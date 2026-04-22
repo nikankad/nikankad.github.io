@@ -17,11 +17,18 @@ const isActive = (path: string) => {
 <nav>
   <div class="nav-links">
     {
-      NAVIGATION.map(({ name, path }) => (
-        <a href={path} class={isActive(path) ? "active" : ""}>
-          {name}
-        </a>
-      ))
+      NAVIGATION.map(({ name, path }) => {
+        const external = path.startsWith("http");
+        return (
+          <a
+            href={path}
+            class={isActive(path) ? "active" : ""}
+            {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+          >
+            {name}
+          </a>
+        );
+      })
     }
   </div>
   {showFish && (
