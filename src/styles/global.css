@@ -159,6 +159,22 @@ body::before {
   will-change: transform;
 }
 
+@media (max-width: 640px), (prefers-reduced-motion: reduce) {
+  body::after {
+    animation: none;
+    background-image: linear-gradient(to bottom right, rgba(123, 104, 238, 0.05), rgba(123, 104, 238, 0.02));
+    opacity: 0.2;
+  }
+
+  body::before,
+  .bottom-glow {
+    mask-image: none;
+    -webkit-mask-image: none;
+    filter: none;
+    will-change: auto;
+  }
+}
+
 h1,
 h2,
 h3,

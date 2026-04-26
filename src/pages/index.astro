@@ -51,7 +51,7 @@ const featuredProjects = projects.filter((project: CollectionEntry<"projects">) 
           <h1>{site.name}        <p class="degree-subtitle">BSCS</p>
 </h1>
         </div>
-        <img src="/images/companies/low/fish.jpg" alt="Profile image" class="hero-image" loading="lazy" decoding="async" />
+        <img src="/images/companies/low/fish.jpg" alt="Profile image" class="hero-image" loading="eager" fetchpriority="high" decoding="async" width="87" height="87" />
       </div>
       <div class="title-and-links">
         <p class="subtitle">{site.title}</p>
