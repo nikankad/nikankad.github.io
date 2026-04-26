@@ -3,10 +3,9 @@ import { NAVIGATION } from "../../constants/navigation";
 import { getEntry } from "astro:content";
 
 const pathname = new URL(Astro.request.url).pathname;
-const showFish = pathname !== "/";
 
 const siteConfig = await getEntry("site", "home");
-const githubUrl = siteConfig?.data.socialLinks.find(link => link.platform === "GitHub")?.url;
+const githubUrl = siteConfig?.data.socialLinks.find(link => link.platform === "GitHub")?.url ?? "https://github.com/nikankad";
 
 const isActive = (path: string) => {
   if (path === "/") return pathname === "/";
@@ -31,13 +30,16 @@ const isActive = (path: string) => {
       })
     }
   </div>
-  {showFish && (
-    <div class="nav-right">
-      <a href={githubUrl} target="_blank" rel="noopener noreferrer">
-        <img src="/images/companies/low/fish.jpg" alt="Fish" class="nav-fish" loading="lazy" decoding="async" fetchpriority="low" />
-      </a>
-    </div>
-  )}
+  <div class="nav-right">
+    <a href={githubUrl} target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
+      <svg viewBox="0 0 24 24" aria-hidden="true" class="nav-github">
+        <path
+          fill="currentColor"
+          d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.22.68-.48 0-.24-.01-1.03-.01-1.87-2.78.6-3.37-1.18-3.37-1.18-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.35 1.09 2.92.83.09-.65.35-1.09.64-1.34-2.22-.25-4.56-1.11-4.56-4.93 0-1.09.39-1.99 1.03-2.69-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.03A9.53 9.53 0 0 1 12 6.84c.85 0 1.71.11 2.51.33 1.91-1.3 2.75-1.03 2.75-1.03.55 1.37.2 2.39.1 2.64.64.7 1.03 1.6 1.03 2.69 0 3.83-2.35 4.68-4.59 4.92.36.31.69.92.69 1.86 0 1.35-.01 2.44-.01 2.77 0 .27.18.58.69.48A10 10 0 0 0 22 12c0-5.52-4.48-10-10-10Z"
+        />
+      </svg>
+    </a>
+  </div>
 </nav>
 
 <style>
@@ -97,14 +99,17 @@ const isActive = (path: string) => {
     cursor: pointer;
   }
 
-  .nav-fish {
+  .nav-github {
     position: fixed;
     top: 1rem;
     right: 1rem;
     width: 2rem;
     height: 2rem;
-    object-fit: cover;
-    border-radius: 50%;
+    color: var(--text-muted);
     z-index: 1000;
+  }
+
+  .nav-github:hover {
+    color: var(--color-text);
   }
 </style>

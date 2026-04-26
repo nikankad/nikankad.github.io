@@ -5,6 +5,7 @@ import type { CollectionEntry } from "astro:content";
 import BaseLayout from "../components/layout/BaseLayout.astro";
 import ContentList from "../components/shared/ContentList.astro";
 import Container from "../components/ui/Container.astro";
+import { formatDate } from "../utils/date";
 
 const siteConfig = await getEntry("site", "home");
 if (!siteConfig) {
@@ -12,14 +13,6 @@ if (!siteConfig) {
 }
 
 const site = siteConfig.data;
-
-const formatDate = (date: Date | undefined) => {
-  if (!date) return "";
-  return date.toLocaleDateString("en-US", {
-    month: "short",
-    year: "numeric",
-  });
-};
 
 const posts = await getCollection("blog", ({ data }: CollectionEntry<"blog">) => {
   return import.meta.env.PROD ? !data.draft : true;
@@ -55,7 +48,7 @@ const featuredProjects = projects.filter((project: CollectionEntry<"projects">) 
     <section class="hero">
       <div class="hero-header">
         <div class="name-container">
-          <h1>{site.name}        <p class="degree-subtitle">BSCS '26</p>
+          <h1>{site.name}        <p class="degree-subtitle">BSCS</p>
 </h1>
         </div>
         <img src="/images/companies/low/fish.jpg" alt="Profile image" class="hero-image" loading="lazy" decoding="async" />
@@ -119,7 +112,7 @@ const featuredProjects = projects.filter((project: CollectionEntry<"projects">) 
                   <span>{exp.data.title}</span>
                 </div>
                 <time>
-                  {formatDate(exp.data.startDate)} - {exp.data.current ? "Present" : formatDate(exp.data.endDate)}
+                  {formatDate(exp.data.startDate)} - {exp.data.current ? "Present" : exp.data.endDate ? formatDate(exp.data.endDate) : ""}
                 </time>
               </div>
               <p class="muted-text">{exp.data.description}</p>

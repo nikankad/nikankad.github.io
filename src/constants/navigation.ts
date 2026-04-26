@@ -17,9 +17,4 @@ export const NAVIGATION: Navigation = [
         name: "Blog",
         path: "/blog",
     },
-    {
-        name: "PDF Viewer",
-        path: "https://nikankad.github.io/PDFViewer/",
-    },
-
 ]; 
