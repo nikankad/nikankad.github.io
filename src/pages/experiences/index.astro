@@ -4,14 +4,7 @@ import BaseLayout from "../../components/layout/BaseLayout.astro";
 import BaseHero from "../../components/shared/BaseHero.astro";
 import Container from "../../components/ui/Container.astro";
 import ContentList from "../../components/shared/ContentList.astro";
-
-const formatDate = (date: Date | undefined) => {
-  if (!date) return "";
-  return date.toLocaleDateString("en-US", {
-    month: "short",
-    year: "numeric",
-  });
-};
+import { formatDate } from "../../utils/date";
 
 const experiences = await getCollection("experience");
 const sortedExperiences = experiences.sort(
@@ -43,7 +36,7 @@ const sortedExperiences = experiences.sort(
                 <span>{exp.data.title}</span>
               </div>
               <time>
-                {formatDate(exp.data.startDate)} - {exp.data.current ? "Present" : formatDate(exp.data.endDate)}
+                {formatDate(exp.data.startDate)} - {exp.data.current ? "Present" : exp.data.endDate ? formatDate(exp.data.endDate) : ""}
               </time>
             </div>
             <p class="muted-text">{exp.data.description}</p>
