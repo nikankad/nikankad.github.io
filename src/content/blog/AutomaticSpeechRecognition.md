@@ -7,9 +7,9 @@ draft: false
 
 ## Background
 
-Automatic speech recognition (ASR) is everywhere — it powers virtual assistants, real-time captions, voice navigation, and accessibility tools. The field has made enormous strides in accuracy over the past decade, but most of those gains came from models that are simply too large and compute-hungry to run on a phone or embedded device.
+Automatic speech recognition (ASR) is everywhere. It powers virtual assistants, real-time captions, voice navigation, and accessibility tools. The field has made enormous strides in accuracy over the past decade, but most of those gains came from models that are simply too large and compute-hungry to run on a phone or embedded device.
 
-The standard playbook in modern ASR involves Transformer-based architectures like the Conformer, which combine self-attention with convolution to capture both global and local patterns in speech. These models achieve impressive word error rates (WER) on benchmarks like LibriSpeech, but they often exceed 100 million parameters — far too heavy for on-device inference.
+The standard playbook in modern ASR involves Transformer-based architectures like the Conformer, which combine self-attention with convolution to capture both global and local patterns in speech. These models achieve impressive word error rates (WER) on benchmarks like LibriSpeech, but they often exceed 100 million parameters, far too heavy for on-device inference.
 
 Our goal with **IBNet** was to close that gap: build an end-to-end ASR model that is compact enough for edge deployment without sacrificing the recognition accuracy that makes these systems actually useful.
 
@@ -27,7 +27,7 @@ The QuartzNet architecture consists of:
 
 Three size variants exist: **5×5** (6.7M params), **10×5** (12.8M), and **15×5** (18.9M). At under 20M parameters, QuartzNet was already a strong baseline for efficient ASR.
 
-The limitation we identified: every module in QuartzNet operates at a **fixed channel dimensionality**. The depthwise temporal convolution sees exactly as many channels as came in — no more, no less. This constrains how diverse the temporal features can be at each layer.
+The limitation we identified: every module in QuartzNet operates at a **fixed channel dimensionality**. The depthwise temporal convolution sees exactly as many channels as came in: no more, no less. This constrains how diverse the temporal features can be at each layer.
 
 ---
 
@@ -89,7 +89,7 @@ A K-wide depthwise 1D convolution operates on H1 independently per channel, foll
 H2 = ReLU(BN(DWConv_K(H1)))  ∈ ℝ^(C_mid 
 ```
 
-**3. Pointwise Compression — Linear Bottleneck**
+**3. Pointwise Compression: Linear Bottleneck**
 
 A 1×1 convolution compresses from C_mid back to C_out, followed by BatchNorm but **no ReLU**:
 
@@ -104,7 +104,7 @@ Y = Ŷ + X   (if C_in == C_out)
 Y = Ŷ       (otherwise)
 ```
 
-The omission of ReLU after compression is critical. In the narrow output space, ReLU would zero out roughly half of all activations — irreversibly discarding information. In the wider intermediate space, there is sufficient redundancy that ReLU can be applied without significant information loss. This is the "linear bottleneck" insight from MobileNetV2, adapted here to the temporal audio domain.
+The omission of ReLU after compression is critical. In the narrow output space, ReLU would zero out roughly half of all activations, irreversibly discarding information. In the wider intermediate space, there is sufficient redundancy that ReLU can be applied without significant information loss. This is the "linear bottleneck" insight from MobileNetV2, adapted here to the temporal audio domain.
 
 ### IBBlock
 
@@ -116,7 +116,7 @@ Z = ReLU( F(X) + BN(Conv1×1(X)) )
 
 where F(X) = IBConv_R( ··· IBConv_1(X) ) is the sequential output of R stacked modules.
 
-This **dual residual scheme** — per-module shortcuts inside each IBConv plus a block-level shortcut across the entire stack — provides two complementary gradient pathways:
+This **dual residual scheme** (per-module shortcuts inside each IBConv plus a block-level shortcut across the entire stack) provides two complementary gradient pathways:
 
 - **Module-level residuals** help each IBConv learn incremental refinements to its input
 - **Block-level residuals** ensure gradients can flow directly from the block output back to the block input, stabilizing training in deep stacks
@@ -129,7 +129,7 @@ This is particularly important for IBNet because each IBConv already contains th
 
 Standard depthwise separable convolutions, as used in QuartzNet, perform temporal filtering at the same channel width as the input. The number of distinct temporal patterns the network can simultaneously model is constrained by C.
 
-By expanding to C_mid = t × C before the depthwise step, the convolution operates in a space with t times as many independent filter channels. This allows the network to learn a richer, more diverse set of temporal features — different channels can specialize in different acoustic phenomena — while the subsequent compression keeps the output compact and parameter count reasonable.
+By expanding to C_mid = t × C before the depthwise step, the convolution operates in a space with t times as many independent filter channels. This allows the network to learn a richer, more diverse set of temporal features. Different channels can specialize in different acoustic phenomena, while the subsequent compression keeps the output compact and parameter count reasonable.
 
 The tradeoff is a modest increase in computation during the expand/compress steps, but since pointwise convolutions have no kernel width, they are much cheaper than wide depthwise convolutions.
 
@@ -140,10 +140,10 @@ The tradeoff is a modest increase in computation during the expand/compress step
 IBNet is trained end-to-end with **CTC loss** on the LibriSpeech `train-clean-100` subset (~100 hours of clean English speech). This controlled setting isolates architectural improvements from data-scale effects and allows systematic comparison under a fixed compute budget.
 
 We evaluate against QuartzNet baselines under four configurations:
-- **Greedy decoding** — no language model, argmax at each frame
-- **SpecCutout only** — spectrogram-level data augmentation
-- **Speed Perturbation only** — audio speed perturbation augmentation
-- **SpecCutout + LM** — augmentation plus a shallow language model at decode time
+- **Greedy decoding**: no language model, argmax at each frame
+- **SpecCutout only**: spectrogram-level data augmentation
+- **Speed Perturbation only**: audio speed perturbation augmentation
+- **SpecCutout + LM**: augmentation plus a shallow language model at decode time
 
 Evaluation is reported on four splits: `dev-clean`, `dev-other`, `test-clean`, `test-other`.
 
@@ -151,7 +151,7 @@ Evaluation is reported on four splits: `dev-clean`, `dev-other`, `test-clean`, `
 
 ## Results
 
-Experiments are ongoing, but preliminary results show that IBNet (C=172, R=3, t=2) achieves competitive WER against QuartzNet 5×5 (6.7M parameters) under comparable parameter budgets. The dual residual scheme and linear bottleneck design are both critical — ablations removing either component show degraded validation WER.
+Experiments are ongoing, but preliminary results show that IBNet (C=172, R=3, t=2) achieves competitive WER against QuartzNet 5×5 (6.7M parameters) under comparable parameter budgets. The dual residual scheme and linear bottleneck design are both critical. Ablations removing either component show degraded validation WER.
 
 Full WER numbers across all configurations and model variants will be published here and in the final paper upon experiment completion.
 
