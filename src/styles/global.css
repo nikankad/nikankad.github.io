@@ -87,7 +87,7 @@ main {
 
 @media (max-width: 640px) {
   main {
-    padding: 1rem 0;
+    padding: 1.25rem 1.25rem;
   }
 
   .nav-container {
