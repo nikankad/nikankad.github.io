@@ -173,4 +173,4 @@ A few directions we're actively exploring:
 
 ## Code
 
-The source code and pre-trained models are available at [github.com/nikankad/Notarius](https://github.com/nikankad/Notarius).
+The source code and pre-trained models are available at [github.com/nikankad/IbNet](https://github.com/nikankad/IbNet).
