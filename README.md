@@ -1,62 +1,42 @@
-# Personal Portfolio
+# nikankad.github.io
 
-My personal portfolio website built with Astro and deployed on Cloudflare Pages.
+Personal site at [nikankad.github.io](https://nikankad.github.io).
 
-## Quick Start
+## Stack
+
+Astro 5, deployed via Cloudflare Pages (`wrangler`).
+
+## Develop
 
 ```bash
-# Install dependencies
 pnpm install
-
-# Start dev server
 pnpm dev
-
-# Build for production
-pnpm build
-
-# Preview production build locally
-pnpm preview
-
-# Deploy to Cloudflare Pages
-pnpm deploy
 ```
 
-## Tech Stack
+## Build
 
-- **Astro** - Static site framework
-- **Cloudflare Pages** - Hosting & deployment
-- **TypeScript** - Type safety
-- **pnpm** - Package manager
-
-## Project Structure
-
-```
-src/
-├── components/     # Reusable UI components
-├── content/        # Content collections (blog, projects, experience, etc.)
-├── pages/          # Page routes
-├── styles/         # Global styles
-├── utils/          # Helper functions
-└── types/          # TypeScript type definitions
+```bash
+pnpm build      # astro build → dist/
+pnpm preview    # build + serve locally via wrangler
+pnpm deploy     # build + push to Cloudflare
 ```
 
 ## Content
 
-Edit content in `src/content/`:
-- `blog/` - Blog posts
-- `projects/` - Project showcase
-- `experience/` - Work experience
-- `bookmarks/` - Saved bookmarks
-- `notes/` - Personal notes
-- `site/config.json` - Site configuration
+All editable content in `src/content/`:
 
-## Notes to Self
+| Directory | Purpose |
+|-----------|---------|
+| `blog/` | Blog posts (markdown) |
+| `projects/` | Project entries |
+| `experience/` | Work history |
+| `bookmarks/` | Saved links |
+| `notes/` | Personal notes |
+| `site/config.json` | Name, title, social links |
 
-- Favicon is at `/public/images/favicon.ico`
-- Site config lives in `src/content/site/config.json`
-- Dark theme is hardcoded (check BaseLayout.astro)
-- Using Inter, Roboto Mono, and Source Sans Pro fonts
+## Config
 
-## Deployment
-
-Automatically deploys to Cloudflare Pages on push. Manual deploy with `pnpm deploy`.
+- **Theme**: dark, hardcoded in `BaseLayout.astro`
+- **Fonts**: Inter, Roboto Mono, Source Sans Pro (via Fontsource)
+- **Math**: KaTeX via remark-math/rehype-katex
+- **Favicon**: `public/images/favicon.ico`
