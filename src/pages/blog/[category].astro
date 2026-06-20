@@ -36,7 +36,6 @@ const sortedPosts = categoryPosts.sort(
 ---
 
 <BaseLayout title="Blog" description="">
-  <main>
     <Container>
       <BaseHero title="Blog" description="" />
       <Categories categories={allCategories} currentPath={Astro.url.pathname} basePath="blog" />
@@ -55,5 +54,4 @@ const sortedPosts = categoryPosts.sort(
         }
       </div>
     </Container>
-  </main>
 </BaseLayout>
