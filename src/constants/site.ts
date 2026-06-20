@@ -5,7 +5,7 @@ export type NavigationItem = {
 
 export const SITE = {
     name: "Nikan",
-    title: "Software Engineer & Curious Tinkerer",
+    title: "Engineer & Curious Tinkerer",
     description: "Personal portfolio and blog",
     url: "https://bytekai.dev",
     defaultImage: "/default-og-image.jpg",
