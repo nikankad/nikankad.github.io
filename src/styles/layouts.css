@@ -17,3 +17,10 @@
   align-items: baseline;
   gap: var(--space-4);
 }
+
+.company-logo {
+  width: 1.35rem;
+  height: 1.35rem;
+  object-fit: contain;
+  border-radius: 0;
+}
