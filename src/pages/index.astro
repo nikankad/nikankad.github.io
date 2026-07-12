@@ -31,7 +31,7 @@ const featuredProjects = projects
   .slice(0, 3);
 ---
 
-<BaseLayout title={`${site.name} — ${site.title}`} description={site.introduction || `${site.name}, ${site.title}`}>
+<BaseLayout title={`${site.name} - ${site.title}`} description={site.introduction || `${site.name}, ${site.title}`}>
   <Container>
     <section class="hero" aria-label="Introduction">
       <div class="hero-field dither-shimmer" aria-hidden="true">
@@ -111,7 +111,7 @@ const featuredProjects = projects
                   <span>{exp.data.title}</span>
                 </div>
                 <time>
-                  {formatDateShort(exp.data.startDate)} —{" "}
+                  {formatDateShort(exp.data.startDate)} -{" "}
                   {exp.data.current ? "Present" : exp.data.endDate ? formatDateShort(exp.data.endDate) : ""}
                 </time>
               </div>
