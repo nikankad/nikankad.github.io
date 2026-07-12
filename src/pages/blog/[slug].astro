@@ -14,7 +14,6 @@ export const getStaticPaths = (async () => {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description} includeKatex={true}>
@@ -42,74 +41,81 @@ const { Content } = await render(post);
 
 <style>
   article.post {
-    margin-top: 2rem;
+    margin-top: var(--space-4);
   }
 
   article.post header {
-    margin-bottom: 2rem;
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-5);
+    border-bottom: 1px solid var(--border-color);
   }
 
   article.post h1 {
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--space-3);
+    font-size: clamp(1.75rem, 5vw, var(--text-4xl));
   }
 
   article.post time {
-    color: var(--text-muted);
-    font-size: var(--text-sm);
+    font-family: var(--font-mono);
+    color: var(--text-tertiary);
+    font-size: var(--text-xs);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
   }
 
   article.post .tags {
-    margin-top: 0.5rem;
+    margin-top: var(--space-3);
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: 0.45rem;
   }
 
   article.post .tag {
     display: inline-block;
-    padding: 0.125rem 0.25rem;
-    background: var(--hover-bg);
-    border-radius: 0.25rem;
-    font-size: 0.75rem;
-    color: var(--text-muted);
+    padding: 0.2rem 0.45rem;
+    border: 1px solid var(--border-color);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-faint);
   }
 
   article.post .content {
-    line-height: 1.7;
+    line-height: 1.75;
   }
 
-  article.post .content :global(h2) {
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-  }
-
+  article.post .content :global(h2),
   article.post .content :global(h3) {
-    margin-top: 1.5rem;
-    margin-bottom: 0.75rem;
+    margin-top: var(--space-7);
+    margin-bottom: var(--space-3);
   }
 
   article.post .content :global(p) {
     margin-bottom: 1.25rem;
+    max-width: 100%;
   }
 
   article.post .content :global(img) {
-    border-radius: 0.5rem;
-    margin: 1.5rem 0;
+    border-radius: 0;
+    border: 1px solid var(--border-color);
+    margin: var(--space-5) 0;
   }
 
   article.post .content :global(blockquote) {
-    border-left: 3px solid var(--border-color);
-    padding-left: 1.5rem;
-    margin: 1.5rem 0;
+    border-left: 2px solid var(--accent);
+    padding-left: var(--space-4);
+    margin: var(--space-5) 0;
     color: var(--text-muted);
   }
 
   article.post .content :global(pre) {
-    padding: 1rem;
-    border-radius: 0.5rem;
-    background: var(--hover-bg);
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    background: var(--bg-color-muted);
+    border: 1px solid var(--border-color);
     overflow-x: auto;
-    margin: 1.5rem 0;
+    margin: var(--space-5) 0;
   }
 
   article.post .content :global(code) {
@@ -118,27 +124,18 @@ const { Content } = await render(post);
   }
 
   article.post .content :global(a) {
+    text-decoration: underline;
     text-decoration-thickness: 1px;
-    text-underline-offset: 2px;
+    text-underline-offset: 3px;
   }
 
   article.post .content :global(ul),
   article.post .content :global(ol) {
-    margin: 1rem 0;
-    padding-left: 1.5rem;
+    margin: var(--space-4) 0;
+    padding-left: var(--space-5);
   }
 
   article.post .content :global(li) {
-    margin: 0.5rem 0;
-  }
-
-  .content :global(p) {
-    max-width: 100%;
-  }
-
-  @media (max-width: 640px) {
-    article.post {
-      padding: 0;
-    }
+    margin: var(--space-2) 0;
   }
 </style>

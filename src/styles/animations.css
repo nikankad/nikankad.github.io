@@ -1,4 +1,3 @@
-/* Animation Keyframes */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -11,7 +10,7 @@
 @keyframes slideUpFade {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
@@ -19,47 +18,88 @@
   }
 }
 
-@keyframes scaleIn {
+@keyframes pixelIn {
   from {
     opacity: 0;
-    transform: scale(0.95);
+    filter: contrast(1.4) brightness(0.7);
+    transform: translateY(8px) scale(0.98);
   }
   to {
     opacity: 1;
-    transform: scale(1);
+    filter: none;
+    transform: translateY(0) scale(1);
   }
 }
 
-.initial-load {
-  animation: none !important;
+@keyframes ditherShimmer {
+  0%,
+  100% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 8px 4px;
+  }
+}
+
+@keyframes bloomPulse {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 0.75;
+  }
+}
+
+@keyframes sparkle {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
 }
 
 .initial-load .animate-fade {
-  animation: fadeIn 0.5s var(--transition-base) both;
+  animation: fadeIn 0.55s var(--transition-base) both;
 }
 
 .initial-load .animate-slide-up {
-  animation: slideUpFade 0.5s var(--transition-base) both;
+  animation: slideUpFade 0.6s var(--transition-bloom) both;
 }
 
-.initial-load .animate-scale {
-  animation: scaleIn 0.3s var(--transition-base) both;
+.initial-load .animate-pixel {
+  animation: pixelIn 0.7s var(--transition-bloom) both;
 }
 
-/* Staggered animations */
 .initial-load .stagger-1 {
-  animation-delay: 100ms;
+  animation-delay: 80ms;
 }
 .initial-load .stagger-2 {
-  animation-delay: 150ms;
+  animation-delay: 160ms;
 }
 .initial-load .stagger-3 {
-  animation-delay: 200ms;
+  animation-delay: 240ms;
+}
+.initial-load .stagger-4 {
+  animation-delay: 320ms;
+}
+.initial-load .stagger-5 {
+  animation-delay: 400ms;
 }
 
-/* Interactive Animations */
+.dither-shimmer {
+  animation: ditherShimmer 12s steps(6) infinite;
+}
+
+.bloom-pulse {
+  animation: bloomPulse 6s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: no-preference) {
-  /* Hover transitions */
   .hover-lift {
     transition: transform var(--transition-base);
   }
@@ -67,40 +107,8 @@
   .hover-lift:hover {
     transform: translateY(-2px);
   }
-
-  .hover-scale {
-    transition: transform var(--transition-base);
-  }
-
-  .hover-scale:hover {
-    transform: scale(1.02);
-  }
-
-  /* Link underline animation */
-  .link-underline {
-    position: relative;
-  }
-
-  .link-underline::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 1px;
-    bottom: -2px;
-    left: 0;
-    background: currentColor;
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform var(--transition-base);
-  }
-
-  .link-underline:hover::after {
-    transform: scaleX(1);
-    transform-origin: left;
-  }
 }
 
-/* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

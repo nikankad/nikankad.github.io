@@ -7,13 +7,24 @@ interface Props {
 const { title, description } = Astro.props;
 ---
 
-<section class="hero">
+<section class="page-hero">
   <h1>{title}</h1>
-  <p class="subtitle">{description}</p>
+  {description && <p class="subtitle">{description}</p>}
 </section>
 
 <style>
-  .hero {
-    padding: 1rem 0;
+  .page-hero {
+    padding: var(--space-4) 0 var(--space-6);
+    margin-bottom: var(--space-4);
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .page-hero h1 {
+    margin-bottom: 0;
+    font-size: clamp(2rem, 6vw, var(--text-5xl));
+  }
+
+  .page-hero .subtitle {
+    margin-top: var(--space-3);
   }
 </style>

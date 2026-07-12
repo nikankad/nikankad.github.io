@@ -3,12 +3,12 @@ import "../../styles/theme.css";
 import "../../styles/animations.css";
 import "../../styles/global.css";
 
-import "@fontsource/inter/300.css";
-import "@fontsource/inter/400.css";
-import "@fontsource/inter/500.css";
-import "@fontsource/roboto-mono/400.css";
+import "@fontsource/geist/400.css";
+import "@fontsource/geist/500.css";
+import "@fontsource/geist-mono/400.css";
+import "@fontsource/geist-mono/500.css";
 
-import interRegularWoff2 from "@fontsource/inter/files/inter-latin-400-normal.woff2?url";
+import geistRegularWoff2 from "@fontsource/geist/files/geist-latin-400-normal.woff2?url";
 import Navigation from "../shared/Navigation.astro";
 
 interface Props {
@@ -19,7 +19,13 @@ interface Props {
   includeKatex?: boolean;
 }
 
-const { title, description, image = "/default-og-image.jpg", canonicalURL = Astro.url, includeKatex = false } = Astro.props;
+const {
+  title,
+  description,
+  image = "/default-og-image.jpg",
+  canonicalURL = Astro.url,
+  includeKatex = false,
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -28,11 +34,12 @@ const { title, description, image = "/default-og-image.jpg", canonicalURL = Astr
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="format-detection" content="telephone=no" />
+    <meta name="theme-color" content="#0d0d0f" />
     <title>{title}</title>
     <meta name="description" content={description} />
 
-    <!-- Preload critical fonts -->
-    <link rel="preload" href={interRegularWoff2} as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href={geistRegularWoff2} as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="/fonts/GeistPixel-Square.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
 
     <link rel="canonical" href={canonicalURL} />
 
@@ -50,23 +57,21 @@ const { title, description, image = "/default-og-image.jpg", canonicalURL = Astr
 
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
-    {includeKatex && (
-      <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
-        integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV"
-        crossorigin="anonymous"
-        fetchpriority="low"
-      />
-    )}
+    {
+      includeKatex && (
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
+          integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV"
+          crossorigin="anonymous"
+          fetchpriority="low"
+        />
+      )
+    }
     <script is:inline>
-      // Always use dark theme
       document.documentElement.setAttribute("data-theme", "dark");
-
-      // Add initial-load class
       document.addEventListener("DOMContentLoaded", () => {
         document.body.classList.add("initial-load");
-
         setTimeout(() => {
           document.body.classList.remove("initial-load");
           document.documentElement.classList.add("theme-transition");
@@ -75,13 +80,67 @@ const { title, description, image = "/default-og-image.jpg", canonicalURL = Astr
     </script>
   </head>
   <body>
-    <div class="top-glow" transition:persist></div>
-    <main>
-      <div class="nav-container">
+    <div class="page-shell">
+      <header class="site-header">
         <Navigation />
-      </div>
-      <slot />
-    </main>
-    <div class="bottom-glow" transition:persist></div>
+      </header>
+      <main>
+        <slot />
+      </main>
+      <footer class="site-footer">
+        <span class="footer-mark" aria-hidden="true"></span>
+        <p>ordered dither · tripwire-inspired</p>
+      </footer>
+    </div>
   </body>
 </html>
+
+<style is:global>
+  .page-shell {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    width: 100%;
+    max-width: calc(var(--content-width) + var(--page-gutter) * 2);
+    margin: 0 auto;
+    padding: var(--space-4) var(--page-gutter) 0;
+    background: linear-gradient(to bottom, var(--bg-color) 60%, transparent);
+  }
+
+  main {
+    flex: 1;
+  }
+
+  .site-footer {
+    width: 100%;
+    max-width: calc(var(--content-width) + var(--page-gutter) * 2);
+    margin: 0 auto;
+    padding: var(--space-6) var(--page-gutter) var(--space-7);
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    color: var(--text-tertiary);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .footer-mark {
+    width: 10px;
+    height: 10px;
+    flex-shrink: 0;
+    image-rendering: pixelated;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Crect width='1' height='1' fill='%2334a6ff'/%3E%3Crect x='2' y='1' width='1' height='1' fill='%2334a6ff' opacity='0.5'/%3E%3Crect x='1' y='2' width='1' height='1' fill='%23eeeeee' opacity='0.35'/%3E%3Crect x='3' y='3' width='1' height='1' fill='%2334a6ff' opacity='0.8'/%3E%3C/svg%3E");
+    background-size: 10px 10px;
+    animation: sparkle 2.8s ease-in-out infinite;
+  }
+</style>

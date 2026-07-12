@@ -7,7 +7,6 @@ import ContentList from "../../components/shared/ContentList.astro";
 
 const projects = await getCollection("projects");
 const sortedProjects = projects.sort((a, b) => {
-  // Sort by featured first, then alphabetically
   if (a.data.featured && !b.data.featured) return -1;
   if (!a.data.featured && b.data.featured) return 1;
   return a.data.title.localeCompare(b.data.title);
@@ -46,19 +45,31 @@ const sortedProjects = projects.sort((a, b) => {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    gap: 1rem;
+    gap: var(--space-4);
     font-size: var(--text-sm);
+  }
+
+  .title-row a {
+    color: var(--text-color);
+    font-weight: 500;
+  }
+
+  .title-row a:hover {
+    color: var(--accent);
   }
 
   .tags {
     display: flex;
-    gap: 0.75rem;
-    margin-top: 0.5rem;
     flex-wrap: wrap;
+    gap: 0.45rem 0.75rem;
+    margin-top: var(--space-3);
   }
 
   .tags span {
-    font-size: var(--text-xs);
-    opacity: 0.5;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
   }
 </style>
