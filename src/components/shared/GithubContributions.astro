@@ -113,10 +113,16 @@ const { username } = Astro.props;
       const data: ContributionsResponse = await res.json();
       if (!data.contributions?.length) throw new Error("No contribution data");
 
-      buildGrid(grid, data.contributions);
+      const sixMonthsAgo = new Date();
+      sixMonthsAgo.setUTCMonth(sixMonthsAgo.getUTCMonth() - 6);
+      const cutoff = sixMonthsAgo.toISOString().slice(0, 10);
+      const recentDays = data.contributions.filter((d) => d.date >= cutoff);
+      if (!recentDays.length) throw new Error("No recent contribution data");
 
-      const total = Object.values(data.total ?? {})[0] ?? data.contributions.reduce((sum, d) => sum + d.count, 0);
-      caption.textContent = `${total.toLocaleString()} contributions in the last year`;
+      buildGrid(grid, recentDays);
+
+      const total = recentDays.reduce((sum, d) => sum + d.count, 0);
+      caption.textContent = `${total.toLocaleString()} contributions in the last 6 months`;
 
       skeleton?.remove();
       grid.hidden = false;
