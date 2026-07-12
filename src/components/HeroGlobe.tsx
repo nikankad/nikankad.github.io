@@ -6,8 +6,8 @@ export default function HeroGlobe() {
       backgroundOpacity={0}
       rotationSpeed={0.0003}
       tilt={[20, -18]}
-      radius={10}
-      cameraDistance={25}
+      radius={11}
+      cameraDistance={23}
       style={{ width: "100%", height: "100%" }}
     />
   );
