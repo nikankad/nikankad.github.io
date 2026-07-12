@@ -197,12 +197,12 @@ const featuredProjects = projects
 
   .hero-bloom {
     position: absolute;
-    right: var(--space-3);
-    bottom: var(--space-3);
+    right: 0;
+    bottom: 0;
     width: min(58%, 36rem);
     height: min(92%, 36rem);
     aspect-ratio: 1;
-    background: radial-gradient(ellipse at center, rgba(52, 166, 255, 0.28), transparent 70%);
+    background: radial-gradient(ellipse at 68% 68%, rgba(52, 166, 255, 0.28), transparent 70%);
     filter: blur(28px);
     pointer-events: none;
   }
@@ -371,19 +371,24 @@ const featuredProjects = projects
     }
 
     .hero-globe {
-      right: var(--space-2);
-      bottom: var(--space-2);
+      right: 0;
+      bottom: 0;
       width: min(72%, 20rem);
       height: min(80%, 20rem);
       aspect-ratio: 1;
     }
 
+    .hero-globe :global(canvas) {
+      transform: translate(12%, 12%);
+    }
+
     .hero-bloom {
-      right: var(--space-2);
-      bottom: var(--space-2);
+      right: 0;
+      bottom: 0;
       width: min(72%, 20rem);
       height: min(80%, 20rem);
       aspect-ratio: 1;
+      background: radial-gradient(ellipse at 68% 68%, rgba(52, 166, 255, 0.28), transparent 70%);
     }
 
     .hero-portrait {
