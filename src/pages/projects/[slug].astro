@@ -30,18 +30,32 @@ const { Content } = await render(project);
 
 <style>
   article.project {
-    margin-top: 2rem;
+    margin-top: var(--space-4);
   }
 
   article.project header {
-    margin-bottom: 2rem;
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-5);
+    border-bottom: 1px solid var(--border-color);
   }
 
   h1 {
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--space-3);
+    font-size: clamp(1.75rem, 5vw, var(--text-4xl));
   }
 
   header p {
     color: var(--text-muted);
+    margin-bottom: 0;
+  }
+
+  .content :global(h2),
+  .content :global(h3) {
+    margin-top: var(--space-7);
+    margin-bottom: var(--space-3);
+  }
+
+  .content :global(p) {
+    max-width: 100%;
   }
 </style>

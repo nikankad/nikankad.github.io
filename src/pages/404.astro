@@ -3,62 +3,52 @@ import BaseLayout from "../components/layout/BaseLayout.astro";
 import Container from "../components/ui/Container.astro";
 ---
 
-<BaseLayout title="404 - Page Not Found" description="The page you're looking for doesn't exist.">
+<BaseLayout title="404 — Page Not Found" description="The page you're looking for doesn't exist.">
   <Container>
     <div class="error-page">
-      <h1>404</h1>
-      <h2>Page Not Found</h2>
-      <p>The page you're looking for doesn't exist or has been moved.</p>
-      <a href="/" class="home-button">Go Back Home</a>
+      <p class="error-code">404</p>
+      <h1>Page Not Found</h1>
+      <p class="muted-text">The page you're looking for doesn't exist or has been moved.</p>
+      <a href="/" class="home-button">Go Home</a>
     </div>
   </Container>
 </BaseLayout>
 
 <style>
   .error-page {
-    text-align: center;
-    padding: 4rem 0;
-    max-width: 600px;
-    margin: 0 auto;
+    padding: var(--space-8) 0;
+    max-width: 28rem;
+  }
+
+  .error-code {
+    font-family: var(--font-pixel);
+    font-size: clamp(4rem, 18vw, 7rem);
+    line-height: 1;
+    color: var(--accent);
+    margin-bottom: var(--space-4);
+    text-shadow: 0 0 40px var(--accent-bloom);
   }
 
   h1 {
-    font-size: 6rem;
-    font-weight: 300;
-    color: var(--text-muted);
-    margin-bottom: 1rem;
-  }
-
-  h2 {
-    font-size: var(--text-2xl);
-    margin-bottom: 1rem;
-    color: var(--text-color);
-  }
-
-  p {
-    font-size: var(--text-lg);
-    color: var(--text-muted);
-    margin-bottom: 2rem;
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-3);
   }
 
   .home-button {
     display: inline-block;
-    padding: 0.75rem 1.5rem;
-    background: var(--hover-bg);
-    color: var(--text-color);
-    text-decoration: none;
-    border-radius: 0.5rem;
-    font-weight: 500;
-    border: 1px solid var(--border-color);
+    margin-top: var(--space-5);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.85rem 1.4rem;
+    color: var(--bg-color);
+    background: var(--accent);
+    border: 1px solid var(--accent);
+    box-shadow: 0 0 24px var(--accent-bloom);
   }
 
-  @media (max-width: 640px) {
-    .error-page {
-      padding: 2rem 0;
-    }
-
-    h1 {
-      font-size: 4rem;
-    }
+  .home-button:hover {
+    text-shadow: none;
   }
 </style>

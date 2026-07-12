@@ -1,6 +1,6 @@
 export const THEME = {
     colors: {
-        primary: "var(--primary-color)",
+        primary: "var(--accent)",
         text: "var(--text-color)",
         muted: "var(--text-muted)",
         background: "var(--bg-color)",
@@ -8,8 +8,9 @@ export const THEME = {
         hover: "var(--hover-bg)",
     },
     fonts: {
-        primary: "var(--font-primary)",
+        primary: "var(--font-sans)",
         mono: "var(--font-mono)",
+        pixel: "var(--font-pixel)",
     },
     sizes: {
         text: {
@@ -27,4 +28,4 @@ export const THEME = {
     transitions: {
         base: "var(--transition-base)",
     },
-} as const; 
+} as const;

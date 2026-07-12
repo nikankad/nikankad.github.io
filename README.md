@@ -6,6 +6,10 @@ Personal site at [nikankad.github.io](https://nikankad.github.io).
 
 Astro 5, deployed via Cloudflare Pages (`wrangler`).
 
+## Design
+
+Visual system inspired by [dither-kit](https://www.tripwire.sh/dither-kit) — ordered-dither textures, Geist Pixel display type, Tripwire dark palette (`#0d0d0f` / `#34a6ff`).
+
 ## Develop
 
 ```bash
@@ -30,13 +34,11 @@ All editable content in `src/content/`:
 | `blog/` | Blog posts (markdown) |
 | `projects/` | Project entries |
 | `experience/` | Work history |
-| `bookmarks/` | Saved links |
-| `notes/` | Personal notes |
 | `site/config.json` | Name, title, social links |
 
 ## Config
 
-- **Theme**: dark, hardcoded in `BaseLayout.astro`
-- **Fonts**: Inter, Roboto Mono, Source Sans Pro (via Fontsource)
+- **Theme**: dither-kit dark tokens in `src/styles/theme.css`
+- **Fonts**: Geist, Geist Mono, Geist Pixel
 - **Math**: KaTeX via remark-math/rehype-katex
 - **Favicon**: `public/images/favicon.ico`

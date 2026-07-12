@@ -11,17 +11,17 @@ const { title, description, url, date, tags } = Astro.props;
 import { formatDate } from "../../utils/date";
 ---
 
-<article>
+<article class="article-card">
   <div class="title-row">
     <a href={url}>{title}</a>
     {date && <time datetime={date.toISOString()}>{formatDate(date)}</time>}
   </div>
-  <p class="muted-text">{description}</p>
+  {description && <p class="muted-text">{description}</p>}
   {
-    tags && (
+    tags && tags.length > 0 && (
       <div class="tags">
-        {tags.map((tag, index) => (
-          <span>{tag}{index < tags.length - 1 ? ', ' : ' '}</span>
+        {tags.map((tag) => (
+          <span>{tag}</span>
         ))}
       </div>
     )
@@ -33,27 +33,47 @@ import { formatDate } from "../../utils/date";
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    gap: 1rem;
+    gap: var(--space-4);
   }
 
   .title-row a {
-    font-size: var(--text-lg);
-    text-decoration: none;
+    font-size: var(--text-base);
+    font-weight: 500;
     color: var(--text-color);
   }
 
   .title-row a:hover {
-    color: var(--link-color);
+    color: var(--accent);
+  }
+
+  time {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-tertiary);
+    letter-spacing: 0.04em;
+    white-space: nowrap;
   }
 
   .tags {
     display: flex;
-    gap: 0;
-    margin-top: 0.5rem;
+    flex-wrap: wrap;
+    gap: 0.45rem 0.75rem;
+    margin-top: var(--space-3);
   }
 
   .tags span {
-    size: 2REM;
-    opacity: 0.5;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+  }
+
+  @media (max-width: 640px) {
+    .title-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-1);
+    }
   }
 </style>
