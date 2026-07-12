@@ -5,6 +5,7 @@ import BaseLayout from "../components/layout/BaseLayout.astro";
 import ContentList from "../components/shared/ContentList.astro";
 import Container from "../components/ui/Container.astro";
 import GithubContributions from "../components/shared/GithubContributions.astro";
+import HeroGlobe from "../components/HeroGlobe";
 import { formatDateShort } from "../utils/date";
 
 const siteConfig = await getEntry("site", "home");
@@ -38,7 +39,9 @@ const featuredProjects = projects
 <BaseLayout title={`${site.name} - ${site.title}`} description={site.introduction || `${site.name}, ${site.title}`}>
   <Container>
     <section class="hero" aria-label="Introduction">
-      <div class="hero-field dither-shimmer" aria-hidden="true">
+      <div class="hero-field" aria-hidden="true">
+        <HeroGlobe client:load />
+        <div class="hero-field-overlay"></div>
         <div class="hero-bloom bloom-pulse"></div>
       </div>
 
@@ -158,11 +161,26 @@ const featuredProjects = projects
     z-index: 0;
     border: 1px solid var(--border-color);
     background-color: #08080a;
-    background-image:
-      linear-gradient(180deg, transparent 0%, rgba(13, 13, 15, 0.34) 45%, rgba(13, 13, 15, 0.92) 100%),
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%2308080a'/%3E%3Crect x='0' y='0' width='2' height='2' fill='%2334a6ff' opacity='0.55'/%3E%3Crect x='8' y='2' width='2' height='2' fill='%2334a6ff' opacity='0.25'/%3E%3Crect x='4' y='6' width='2' height='2' fill='%23eeeeee' opacity='0.12'/%3E%3Crect x='12' y='8' width='2' height='2' fill='%2334a6ff' opacity='0.35'/%3E%3Crect x='2' y='12' width='2' height='2' fill='%2334a6ff' opacity='0.2'/%3E%3Crect x='10' y='14' width='2' height='2' fill='%23eeeeee' opacity='0.08'/%3E%3C/svg%3E");
-    background-size: auto, 16px 16px;
-    image-rendering: pixelated;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .hero-field :global(canvas) {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  .hero-field-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(13, 13, 15, 0.34) 45%,
+      rgba(13, 13, 15, 0.92) 100%
+    );
+    pointer-events: none;
   }
 
   .hero-bloom {
