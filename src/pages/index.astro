@@ -48,13 +48,23 @@ const featuredProjects = projects
       </div>
 
       <div class="hero-copy">
-        <h1 class="hero-brand animate-pixel stagger-1">{site.name}</h1>
-        <p class="hero-line animate-slide-up stagger-2">{site.title}</p>
-        <p class="hero-support animate-slide-up stagger-3">MSCS @ Northeastern University</p>
+        <img
+          src="/images/companies/fish.jpg"
+          alt=""
+          class="hero-portrait animate-fade stagger-1"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+          width="96"
+          height="96"
+        />
+        <h1 class="hero-brand animate-pixel stagger-2">{site.name}</h1>
+        <p class="hero-line animate-slide-up stagger-3">{site.title}</p>
+        <p class="hero-support animate-slide-up stagger-4">MSCS @ Northeastern University</p>
 
         {
           site.socialLinks && (
-            <div class="hero-cta animate-slide-up stagger-4">
+            <div class="hero-cta animate-slide-up stagger-5">
               {site.socialLinks.map(({ platform, url }) => (
                 <a href={url} target="_blank" rel="noopener noreferrer">
                   {platform}
@@ -64,17 +74,6 @@ const featuredProjects = projects
           )
         }
       </div>
-
-      <img
-        src="/images/companies/fish.jpg"
-        alt=""
-        class="hero-portrait animate-fade stagger-4"
-        loading="eager"
-        fetchpriority="high"
-        decoding="async"
-        width="96"
-        height="96"
-      />
     </section>
 
     <section class="section">
@@ -257,12 +256,9 @@ const featuredProjects = projects
   }
 
   .hero-portrait {
-    position: absolute;
-    top: var(--space-5);
-    right: var(--space-4);
-    z-index: 1;
     width: 5.5rem;
     height: 5.5rem;
+    margin-bottom: var(--space-4);
     object-fit: cover;
     border: 1px solid var(--border-strong);
     border-radius: 0;
