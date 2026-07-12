@@ -4,6 +4,7 @@ import type { CollectionEntry } from "astro:content";
 import BaseLayout from "../components/layout/BaseLayout.astro";
 import ContentList from "../components/shared/ContentList.astro";
 import Container from "../components/ui/Container.astro";
+import GithubContributions from "../components/shared/GithubContributions.astro";
 import { formatDateShort } from "../utils/date";
 
 const siteConfig = await getEntry("site", "home");
@@ -12,6 +13,9 @@ if (!siteConfig) {
 }
 
 const site = siteConfig.data;
+
+const githubUrl = site.socialLinks?.find((link) => link.platform === "GitHub")?.url ?? "https://github.com/nikankad";
+const githubUsername = githubUrl.replace(/\/+$/, "").split("/").pop() ?? "nikankad";
 
 const experiences = await getCollection("experience");
 const sortedExperiences = experiences.sort(
@@ -120,6 +124,14 @@ const featuredProjects = projects
           ))
         }
       </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>GitHub Activity</h2>
+        <a href={githubUrl} target="_blank" rel="noopener noreferrer">View profile</a>
+      </div>
+      <GithubContributions username={githubUsername} />
     </section>
 
     <section class="section contact">

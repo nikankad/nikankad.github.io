@@ -38,6 +38,12 @@
   --text-5xl: 3.25rem;
   --text-6xl: 4.5rem;
 
+  --contrib-level-0: var(--bg-color-muted);
+  --contrib-level-1: #0e4429;
+  --contrib-level-2: #006d32;
+  --contrib-level-3: #26a641;
+  --contrib-level-4: #39d353;
+
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
