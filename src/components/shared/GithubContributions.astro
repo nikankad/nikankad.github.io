@@ -1,0 +1,244 @@
+---
+interface Props {
+  username: string;
+}
+
+const { username } = Astro.props;
+---
+
+<div class="contrib-wrap" data-username={username}>
+  <div class="contrib-skeleton" aria-hidden="true"></div>
+  <div class="contrib-grid" hidden aria-hidden="true"></div>
+  <p class="contrib-caption" role="status"></p>
+  <noscript>
+    <a href={`https://github.com/${username}`} target="_blank" rel="noopener noreferrer" class="contrib-fallback-link">
+      View my GitHub activity
+    </a>
+  </noscript>
+</div>
+
+<script>
+  const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+  interface ContributionDay {
+    date: string;
+    count: number;
+    level: 0 | 1 | 2 | 3 | 4;
+  }
+
+  interface ContributionsResponse {
+    total: Record<string, number>;
+    contributions: ContributionDay[];
+  }
+
+  function showFallback(wrap: HTMLElement, username: string) {
+    const skeleton = wrap.querySelector(".contrib-skeleton");
+    skeleton?.remove();
+
+    const fallback = document.createElement("a");
+    fallback.href = `https://github.com/${username}`;
+    fallback.target = "_blank";
+    fallback.rel = "noopener noreferrer";
+    fallback.className = "contrib-fallback-link";
+    fallback.textContent = "Couldn't load activity — view on GitHub";
+    wrap.appendChild(fallback);
+  }
+
+  function buildGrid(grid: HTMLElement, days: ContributionDay[]) {
+    // Pad the front so weeks are aligned into Sunday-first columns of 7.
+    const first = new Date(`${days[0].date}T00:00:00Z`);
+    const leadingBlanks = first.getUTCDay();
+    const cells: (ContributionDay | null)[] = [...Array(leadingBlanks).fill(null), ...days];
+
+    const weeks: (ContributionDay | null)[][] = [];
+    for (let i = 0; i < cells.length; i += 7) {
+      weeks.push(cells.slice(i, i + 7));
+    }
+
+    const monthRow = document.createElement("div");
+    monthRow.className = "contrib-months";
+
+    const columnsWrap = document.createElement("div");
+    columnsWrap.className = "contrib-columns";
+
+    let lastMonth = -1;
+    for (const week of weeks) {
+      const column = document.createElement("div");
+      column.className = "contrib-week";
+
+      const firstDay = week.find((d) => d !== null);
+      const label = document.createElement("span");
+      label.className = "contrib-month-label";
+      if (firstDay) {
+        const month = new Date(`${firstDay.date}T00:00:00Z`).getUTCMonth();
+        if (month !== lastMonth) {
+          label.textContent = MONTH_NAMES[month];
+          lastMonth = month;
+        }
+      }
+      monthRow.appendChild(label);
+
+      for (const day of week) {
+        const cell = document.createElement("div");
+        cell.className = "contrib-day";
+        if (day) {
+          cell.classList.add(`level-${day.level}`);
+          cell.title = `${day.count} contribution${day.count === 1 ? "" : "s"} on ${day.date}`;
+        } else {
+          cell.classList.add("level-empty");
+        }
+        column.appendChild(cell);
+      }
+
+      columnsWrap.appendChild(column);
+    }
+
+    grid.appendChild(monthRow);
+    grid.appendChild(columnsWrap);
+  }
+
+  async function init(wrap: HTMLElement) {
+    const username = wrap.dataset.username;
+    if (!username) return;
+
+    const grid = wrap.querySelector<HTMLElement>(".contrib-grid");
+    const caption = wrap.querySelector<HTMLElement>(".contrib-caption");
+    const skeleton = wrap.querySelector(".contrib-skeleton");
+    if (!grid || !caption) return;
+
+    try {
+      const res = await fetch(`https://github-contributions-api.jogruber.de/v4/${username}?y=last`);
+      if (!res.ok) throw new Error(`Request failed: ${res.status}`);
+
+      const data: ContributionsResponse = await res.json();
+      if (!data.contributions?.length) throw new Error("No contribution data");
+
+      buildGrid(grid, data.contributions);
+
+      const total = Object.values(data.total ?? {})[0] ?? data.contributions.reduce((sum, d) => sum + d.count, 0);
+      caption.textContent = `${total.toLocaleString()} contributions in the last year`;
+
+      skeleton?.remove();
+      grid.hidden = false;
+    } catch {
+      showFallback(wrap, username);
+    }
+  }
+
+  document.querySelectorAll<HTMLElement>(".contrib-wrap").forEach(init);
+</script>
+
+<style>
+  .contrib-wrap {
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+  }
+
+  .contrib-skeleton {
+    height: 112px;
+    border-radius: 0.5rem;
+    background: linear-gradient(90deg, var(--bg-color-muted) 25%, var(--hover-bg) 50%, var(--bg-color-muted) 75%);
+    background-size: 200% 100%;
+    animation: contrib-pulse 1.4s ease-in-out infinite;
+  }
+
+  @keyframes contrib-pulse {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .contrib-skeleton {
+      animation: none;
+    }
+  }
+
+  .contrib-caption {
+    margin-top: 0.75rem;
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    opacity: 0.7;
+  }
+</style>
+
+<!--
+  The grid cells, week columns, and fallback link below are created client-side via
+  document.createElement, so they never receive Astro's scoped-style data attribute.
+  These rules must stay global for them to be styled at all.
+-->
+<style is:global>
+  .contrib-grid {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    min-width: max-content;
+  }
+
+  .contrib-months {
+    display: flex;
+    gap: 3px;
+  }
+
+  .contrib-month-label {
+    width: 11px;
+    flex-shrink: 0;
+    font-size: 10px;
+    color: var(--text-muted);
+    opacity: 0.7;
+    white-space: nowrap;
+    overflow: visible;
+  }
+
+  .contrib-columns {
+    display: flex;
+    gap: 3px;
+  }
+
+  .contrib-week {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .contrib-day {
+    width: 11px;
+    height: 11px;
+    border-radius: 2px;
+    background: var(--contrib-level-0);
+  }
+
+  .contrib-day.level-empty {
+    background: transparent;
+  }
+
+  .contrib-day.level-1 {
+    background: var(--contrib-level-1);
+  }
+
+  .contrib-day.level-2 {
+    background: var(--contrib-level-2);
+  }
+
+  .contrib-day.level-3 {
+    background: var(--contrib-level-3);
+  }
+
+  .contrib-day.level-4 {
+    background: var(--contrib-level-4);
+  }
+
+  .contrib-fallback-link {
+    display: inline-block;
+    font-size: var(--text-sm);
+    color: var(--link-color);
+    text-decoration: none;
+  }
+
+  .contrib-fallback-link:hover {
+    text-decoration: underline;
+  }
+</style>
