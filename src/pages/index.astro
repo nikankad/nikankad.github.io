@@ -158,17 +158,19 @@ const featuredProjects = projects
 
   .hero-globe {
     position: absolute;
-    right: var(--space-3);
-    bottom: var(--space-3);
+    right: 0;
+    bottom: 0;
     width: min(58%, 36rem);
     height: min(92%, 36rem);
     aspect-ratio: 1;
+    overflow: hidden;
   }
 
   .hero-globe :global(canvas) {
     display: block;
     width: 100% !important;
     height: 100% !important;
+    transform: translate(14%, 14%);
   }
 
   .hero-field {
