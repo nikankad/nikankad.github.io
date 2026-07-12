@@ -93,8 +93,7 @@ const { username } = Astro.props;
       columnsWrap.appendChild(column);
     }
 
-    grid.appendChild(monthRow);
-    grid.appendChild(columnsWrap);
+    grid.replaceChildren(monthRow, columnsWrap);
   }
 
   async function init(wrap: HTMLElement) {
@@ -136,14 +135,18 @@ const { username } = Astro.props;
 
 <style>
   .contrib-wrap {
+    position: relative;
     overflow-x: auto;
     padding-bottom: 0.25rem;
+    scrollbar-width: thin;
   }
 
   .contrib-skeleton {
-    height: 112px;
-    border-radius: 0.5rem;
-    background: linear-gradient(90deg, var(--bg-color-muted) 25%, var(--hover-bg) 50%, var(--bg-color-muted) 75%);
+    min-height: 11rem;
+    border: 1px solid var(--border-color);
+    background:
+      radial-gradient(ellipse at 50% 100%, rgba(57, 211, 83, 0.16), transparent 58%),
+      linear-gradient(90deg, rgba(23, 23, 26, 0.95) 25%, rgba(57, 211, 83, 0.08) 50%, rgba(23, 23, 26, 0.95) 75%);
     background-size: 200% 100%;
     animation: contrib-pulse 1.4s ease-in-out infinite;
   }
@@ -171,70 +174,119 @@ const { username } = Astro.props;
   }
 </style>
 
-<!--
-  The grid cells, week columns, and fallback link below are created client-side via
-  document.createElement, so they never receive Astro's scoped-style data attribute.
-  These rules must stay global for them to be styled at all.
--->
+<!-- Elements below are created client-side, so these rules must stay global. -->
 <style is:global>
   .contrib-grid {
+    --contrib-cell: 11px;
+    --contrib-gap: 3px;
+
+    position: relative;
     display: inline-flex;
     flex-direction: column;
     gap: 0.35rem;
     min-width: max-content;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    background:
+      radial-gradient(ellipse at 50% 100%, rgba(46, 160, 67, 0.2), transparent 58%),
+      linear-gradient(180deg, rgba(13, 13, 15, 0.72), rgba(8, 8, 10, 0.98)),
+      repeating-linear-gradient(90deg, transparent 0 7px, rgba(238, 238, 238, 0.02) 7px 8px);
+    box-shadow: 0 0 34px rgba(46, 160, 67, 0.08);
+  }
+
+  .contrib-grid::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.36;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Crect width='8' height='8' fill='transparent'/%3E%3Ccircle cx='1' cy='1' r='0.7' fill='%2326a641' opacity='0.24'/%3E%3Ccircle cx='5' cy='4' r='0.7' fill='%23eeeeee' opacity='0.09'/%3E%3C/svg%3E");
+    background-size: 8px 8px;
+    mix-blend-mode: screen;
   }
 
   .contrib-months {
+    position: relative;
+    z-index: 1;
     display: flex;
-    gap: 3px;
+    gap: var(--contrib-gap);
   }
 
   .contrib-month-label {
-    width: 11px;
+    width: var(--contrib-cell);
     flex-shrink: 0;
-    font-size: 10px;
-    color: var(--text-muted);
-    opacity: 0.7;
+    font-size: 0.62rem;
+    font-family: var(--font-mono);
+    color: var(--text-tertiary);
+    text-transform: uppercase;
     white-space: nowrap;
     overflow: visible;
   }
 
   .contrib-columns {
+    position: relative;
+    z-index: 1;
     display: flex;
-    gap: 3px;
+    gap: var(--contrib-gap);
   }
 
   .contrib-week {
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: var(--contrib-gap);
   }
 
   .contrib-day {
-    width: 11px;
-    height: 11px;
+    position: relative;
+    width: var(--contrib-cell);
+    height: var(--contrib-cell);
     border-radius: 2px;
     background: var(--contrib-level-0);
+    box-shadow: inset 0 0 0 1px rgba(238, 238, 238, 0.035);
+  }
+
+  .contrib-day::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.22;
+    background-image: repeating-linear-gradient(
+      135deg,
+      transparent 0 2px,
+      rgba(13, 13, 15, 0.52) 2px 3px
+    );
   }
 
   .contrib-day.level-empty {
     background: transparent;
+    box-shadow: none;
   }
 
   .contrib-day.level-1 {
-    background: var(--contrib-level-1);
+    background: linear-gradient(135deg, #0e4429, #123b24);
   }
 
   .contrib-day.level-2 {
-    background: var(--contrib-level-2);
+    background: linear-gradient(135deg, #006d32, #0c7a3b);
   }
 
   .contrib-day.level-3 {
-    background: var(--contrib-level-3);
+    background: linear-gradient(135deg, #26a641, #2fba50);
+    box-shadow: 0 0 10px rgba(38, 166, 65, 0.16);
   }
 
   .contrib-day.level-4 {
-    background: var(--contrib-level-4);
+    background: linear-gradient(135deg, #39d353, #6ff783);
+    box-shadow: 0 0 14px rgba(57, 211, 83, 0.22);
+  }
+
+  @media (max-width: 640px) {
+    .contrib-grid {
+      --contrib-cell: 9px;
+      --contrib-gap: 2px;
+
+      padding: 0.75rem;
+    }
   }
 
   .contrib-fallback-link {
