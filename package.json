@@ -12,9 +12,8 @@
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.1.0",
-    "@fontsource/inter": "^5.1.1",
-    "@fontsource/roboto-mono": "^5.1.1",
-    "@fontsource/source-sans-pro": "^5.1.0",
+    "@fontsource/geist": "^5.2.9",
+    "@fontsource/geist-mono": "^5.2.8",
     "astro": "^5.1.2",
     "rehype-katex": "^7.0.1",
     "remark-math": "^6.0.0"

@@ -5,7 +5,9 @@ import { getEntry } from "astro:content";
 const pathname = new URL(Astro.request.url).pathname;
 
 const siteConfig = await getEntry("site", "home");
-const githubUrl = siteConfig?.data.socialLinks.find(link => link.platform === "GitHub")?.url ?? "https://github.com/nikankad";
+const githubUrl =
+  siteConfig?.data.socialLinks.find((link) => link.platform === "GitHub")?.url ??
+  "https://github.com/nikankad";
 
 const isActive = (path: string) => {
   if (path === "/") return pathname === "/";
@@ -13,7 +15,12 @@ const isActive = (path: string) => {
 };
 ---
 
-<nav>
+<nav class="nav" aria-label="Primary">
+  <a href="/" class="brand" aria-label="Home">
+    <span class="brand-pixel" aria-hidden="true"></span>
+    <span class="brand-text">nikan</span>
+  </a>
+
   <div class="nav-links">
     {
       NAVIGATION.map(({ name, path }) => {
@@ -21,7 +28,7 @@ const isActive = (path: string) => {
         return (
           <a
             href={path}
-            class={isActive(path) ? "active" : ""}
+            class:list={[{ active: isActive(path) }]}
             {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
           >
             {name}
@@ -30,86 +37,128 @@ const isActive = (path: string) => {
       })
     }
   </div>
-  <div class="nav-right">
-    <a href={githubUrl} target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
-      <svg viewBox="0 0 24 24" aria-hidden="true" class="nav-github">
-        <path
-          fill="currentColor"
-          d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.22.68-.48 0-.24-.01-1.03-.01-1.87-2.78.6-3.37-1.18-3.37-1.18-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.35 1.09 2.92.83.09-.65.35-1.09.64-1.34-2.22-.25-4.56-1.11-4.56-4.93 0-1.09.39-1.99 1.03-2.69-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.03A9.53 9.53 0 0 1 12 6.84c.85 0 1.71.11 2.51.33 1.91-1.3 2.75-1.03 2.75-1.03.55 1.37.2 2.39.1 2.64.64.7 1.03 1.6 1.03 2.69 0 3.83-2.35 4.68-4.59 4.92.36.31.69.92.69 1.86 0 1.35-.01 2.44-.01 2.77 0 .27.18.58.69.48A10 10 0 0 0 22 12c0-5.52-4.48-10-10-10Z"
-        />
-      </svg>
-    </a>
-  </div>
+
+  <a class="nav-github" href={githubUrl} target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        fill="currentColor"
+        d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.22.68-.48 0-.24-.01-1.03-.01-1.87-2.78.6-3.37-1.18-3.37-1.18-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.35 1.09 2.92.83.09-.65.35-1.09.64-1.34-2.22-.25-4.56-1.11-4.56-4.93 0-1.09.39-1.99 1.03-2.69-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.03A9.53 9.53 0 0 1 12 6.84c.85 0 1.71.11 2.51.33 1.91-1.3 2.75-1.03 2.75-1.03.55 1.37.2 2.39.1 2.64.64.7 1.03 1.6 1.03 2.69 0 3.83-2.35 4.68-4.59 4.92.36.31.69.92.69 1.86 0 1.35-.01 2.44-.01 2.77 0 .27.18.58.69.48A10 10 0 0 0 22 12c0-5.52-4.48-10-10-10Z"
+      />
+    </svg>
+  </a>
 </nav>
 
 <style>
-  nav {
+  .nav {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: var(--space-4);
     width: 100%;
+    padding: var(--space-3) 0;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: var(--text-color);
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .brand:hover {
+    text-shadow: none;
+    color: var(--accent);
+  }
+
+  .brand-pixel {
+    width: 12px;
+    height: 12px;
+    image-rendering: pixelated;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Crect width='2' height='2' fill='%2334a6ff'/%3E%3Crect x='2' y='2' width='2' height='2' fill='%2334a6ff' opacity='0.45'/%3E%3C/svg%3E");
+    background-size: 12px 12px;
+  }
+
+  .brand-text {
+    font-family: var(--font-pixel);
+    font-size: var(--text-sm);
+    letter-spacing: 0.08em;
+    text-transform: lowercase;
   }
 
   .nav-links {
     display: flex;
-    gap: 1.5rem;
-  }
-
-  .nav-links a {
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: var(--text-sm);
-    transition: color var(--transition-base);
-    position: relative;
-  }
-
-  a {
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: var(--text-sm);
-    transition: color var(--transition-base);
-    position: relative;
-  }
-
-  a:hover {
-    color: var(--color-text);
-  }
-
-  a.active {
-    color: var(--color-text) !important;
-  }
-
-  a.active::after {
-    content: "";
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: var(--text-muted);
-  }
-
-  .nav-right {
-    display: flex;
-    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.15rem 1.1rem;
     margin-left: auto;
   }
 
-  .nav-right a {
-    cursor: pointer;
+  .nav-links a {
+    position: relative;
+    color: var(--text-faint);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active {
+    color: var(--text-color);
+    text-shadow: none;
+  }
+
+  .nav-links a.active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.55rem;
+    height: 2px;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--accent) 0 2px,
+      transparent 2px 4px
+    );
   }
 
   .nav-github {
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    width: 2rem;
-    height: 2rem;
-    color: var(--text-muted);
-    z-index: 1000;
+    color: var(--text-faint);
+    display: inline-flex;
+    margin-left: 0.25rem;
   }
 
   .nav-github:hover {
-    color: var(--color-text);
+    color: var(--text-color);
+    text-shadow: none;
+  }
+
+  .nav-github svg {
+    width: 1.15rem;
+    height: 1.15rem;
+  }
+
+  @media (max-width: 640px) {
+    .nav {
+      flex-wrap: wrap;
+      row-gap: var(--space-3);
+    }
+
+    .nav-links {
+      order: 3;
+      width: 100%;
+      margin-left: 0;
+      padding-top: var(--space-2);
+    }
+
+    .nav-github {
+      margin-left: auto;
+    }
+
+    .nav-links a.active::after {
+      bottom: -0.4rem;
+    }
   }
 </style>
