@@ -33,7 +33,7 @@ const sortedExperiences = experiences.sort(
                 <span>{exp.data.title}</span>
               </div>
               <time>
-                {formatDateShort(exp.data.startDate)} —{" "}
+                {formatDateShort(exp.data.startDate)} -{" "}
                 {exp.data.current ? "Present" : exp.data.endDate ? formatDateShort(exp.data.endDate) : ""}
               </time>
             </div>
