@@ -28,7 +28,7 @@ body {
   font-family: var(--font-sans);
   font-size: var(--text-base);
   font-weight: 400;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
   overflow-x: hidden;
 }
 
@@ -64,7 +64,7 @@ main {
   width: 100%;
   max-width: calc(var(--content-width) + var(--page-gutter) * 2);
   margin: 0 auto;
-  padding: var(--space-5) var(--page-gutter) var(--space-8);
+  padding: var(--space-4) var(--page-gutter) var(--space-7);
 }
 
 .nav-container {
@@ -83,7 +83,7 @@ h6 {
   font-family: var(--font-pixel);
   font-weight: 400;
   line-height: 1.15;
-  letter-spacing: 0.02em;
+  letter-spacing: 0;
   color: var(--text-color);
   text-wrap: balance;
 }
@@ -108,7 +108,7 @@ h5,
 h6 {
   font-family: var(--font-mono);
   font-size: var(--text-sm);
-  letter-spacing: 0.04em;
+  letter-spacing: 0;
   text-transform: uppercase;
   color: var(--text-faint);
 }
@@ -144,7 +144,7 @@ a:hover {
   color: var(--text-muted);
   font-family: var(--font-mono);
   font-size: var(--text-sm);
-  letter-spacing: 0.04em;
+  letter-spacing: 0;
   text-transform: uppercase;
   margin-top: var(--space-2);
 }
@@ -256,7 +256,7 @@ hr {
 .section-header a {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
-  letter-spacing: 0.06em;
+  letter-spacing: 0;
   text-transform: uppercase;
   color: var(--text-faint);
 }

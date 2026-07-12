@@ -71,11 +71,7 @@ const {
     <script is:inline>
       document.documentElement.setAttribute("data-theme", "dark");
       document.addEventListener("DOMContentLoaded", () => {
-        document.body.classList.add("initial-load");
-        setTimeout(() => {
-          document.body.classList.remove("initial-load");
-          document.documentElement.classList.add("theme-transition");
-        }, 1000);
+        document.documentElement.classList.add("theme-transition");
       });
     </script>
   </head>
@@ -87,10 +83,6 @@ const {
       <main>
         <slot />
       </main>
-      <footer class="site-footer">
-        <span class="footer-mark" aria-hidden="true"></span>
-        <p>ordered dither · tripwire-inspired</p>
-      </footer>
     </div>
   </body>
 </html>
@@ -117,30 +109,5 @@ const {
 
   main {
     flex: 1;
-  }
-
-  .site-footer {
-    width: 100%;
-    max-width: calc(var(--content-width) + var(--page-gutter) * 2);
-    margin: 0 auto;
-    padding: var(--space-6) var(--page-gutter) var(--space-7);
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    color: var(--text-tertiary);
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .footer-mark {
-    width: 10px;
-    height: 10px;
-    flex-shrink: 0;
-    image-rendering: pixelated;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Crect width='1' height='1' fill='%2334a6ff'/%3E%3Crect x='2' y='1' width='1' height='1' fill='%2334a6ff' opacity='0.5'/%3E%3Crect x='1' y='2' width='1' height='1' fill='%23eeeeee' opacity='0.35'/%3E%3Crect x='3' y='3' width='1' height='1' fill='%2334a6ff' opacity='0.8'/%3E%3C/svg%3E");
-    background-size: 10px 10px;
-    animation: sparkle 2.8s ease-in-out infinite;
   }
 </style>

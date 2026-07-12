@@ -72,7 +72,7 @@ const featuredProjects = projects
       />
     </section>
 
-    <section class="section animate-slide-up stagger-4">
+    <section class="section">
       <div class="section-header">
         <h2>{site.sections.projects.title}</h2>
         <a href="/projects">{site.sections.projects.viewAllText}</a>
@@ -147,12 +147,12 @@ const featuredProjects = projects
 <style>
   .hero {
     position: relative;
-    min-height: min(72vh, 36rem);
+    min-height: min(58vh, 30rem);
     display: grid;
     align-content: end;
     gap: var(--space-5);
-    padding: var(--space-7) 0 var(--space-6);
-    margin-bottom: var(--space-7);
+    padding: var(--space-6);
+    margin-bottom: var(--space-6);
     overflow: hidden;
   }
 
@@ -163,7 +163,7 @@ const featuredProjects = projects
     border: 1px solid var(--border-color);
     background-color: #08080a;
     background-image:
-      linear-gradient(180deg, transparent 0%, rgba(13, 13, 15, 0.55) 55%, var(--bg-color) 100%),
+      linear-gradient(180deg, transparent 0%, rgba(13, 13, 15, 0.34) 45%, rgba(13, 13, 15, 0.92) 100%),
       url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%2308080a'/%3E%3Crect x='0' y='0' width='2' height='2' fill='%2334a6ff' opacity='0.55'/%3E%3Crect x='8' y='2' width='2' height='2' fill='%2334a6ff' opacity='0.25'/%3E%3Crect x='4' y='6' width='2' height='2' fill='%23eeeeee' opacity='0.12'/%3E%3Crect x='12' y='8' width='2' height='2' fill='%2334a6ff' opacity='0.35'/%3E%3Crect x='2' y='12' width='2' height='2' fill='%2334a6ff' opacity='0.2'/%3E%3Crect x='10' y='14' width='2' height='2' fill='%23eeeeee' opacity='0.08'/%3E%3C/svg%3E");
     background-size: auto, 16px 16px;
     image-rendering: pixelated;
@@ -195,15 +195,17 @@ const featuredProjects = projects
     margin: var(--space-4) 0 0;
     font-family: var(--font-mono);
     font-size: var(--text-sm);
-    letter-spacing: 0.08em;
+    letter-spacing: 0;
     text-transform: uppercase;
     color: var(--text-color);
+    text-shadow: 0 0 18px rgba(13, 13, 15, 0.8);
   }
 
   .hero-support {
     margin: var(--space-2) 0 0;
-    color: var(--text-faint);
+    color: var(--text-muted);
     font-size: var(--text-sm);
+    text-shadow: 0 0 18px rgba(13, 13, 15, 0.8);
   }
 
   .hero-cta {
@@ -216,7 +218,7 @@ const featuredProjects = projects
   .hero-cta a {
     font-family: var(--font-mono);
     font-size: var(--text-xs);
-    letter-spacing: 0.1em;
+    letter-spacing: 0;
     text-transform: uppercase;
     color: var(--text-color);
     border-bottom: 1px solid var(--border-strong);
@@ -244,7 +246,11 @@ const featuredProjects = projects
   }
 
   .section {
-    margin: var(--space-8) 0;
+    margin: var(--space-7) 0;
+  }
+
+  .hero + .section {
+    margin-top: 0;
   }
 
   .entry {
@@ -293,7 +299,7 @@ const featuredProjects = projects
     font-family: var(--font-mono);
     font-size: var(--text-xs);
     color: var(--text-tertiary);
-    letter-spacing: 0.04em;
+    letter-spacing: 0;
     white-space: nowrap;
   }
 
@@ -307,7 +313,7 @@ const featuredProjects = projects
   .tags span {
     font-family: var(--font-mono);
     font-size: 0.7rem;
-    letter-spacing: 0.06em;
+    letter-spacing: 0;
     text-transform: uppercase;
     color: var(--text-tertiary);
   }
@@ -320,7 +326,7 @@ const featuredProjects = projects
     display: inline-block;
     font-family: var(--font-mono);
     font-size: var(--text-xs);
-    letter-spacing: 0.1em;
+    letter-spacing: 0;
     text-transform: uppercase;
     padding: 0.85rem 1.4rem;
     color: var(--bg-color);
@@ -341,8 +347,9 @@ const featuredProjects = projects
 
   @media (max-width: 640px) {
     .hero {
-      min-height: min(68vh, 30rem);
-      padding-top: var(--space-6);
+      min-height: 24rem;
+      padding: var(--space-5) var(--space-4) var(--space-5);
+      margin-bottom: var(--space-6);
     }
 
     .hero-portrait {
