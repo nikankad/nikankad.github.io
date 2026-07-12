@@ -1,18 +1,42 @@
 :root {
-  --bg-color: #111111;
-  --bg-color-muted: #1a1a1a;
+  /* Tripwire / dither-kit palette */
+  --bg-color: #0d0d0f;
+  --bg-color-muted: #17171a;
+  --surface: #202023;
+  --surface-inner: rgba(250, 250, 250, 0.1);
 
-  --text-color: #ffffff;
-  --text-muted: #c0c0c0;
-  --link-color: #60a5fa;
-  --border-color: rgba(255, 255, 255, 0.1);
+  --text-color: #eeeeee;
+  --text-muted: #b4b4b4;
+  --text-faint: #9f9fa9;
+  --text-tertiary: #6e6e6e;
+
+  --link-color: #34a6ff;
+  --accent: #34a6ff;
+  --accent-soft: rgba(52, 166, 255, 0.18);
+  --accent-bloom: rgba(52, 166, 255, 0.35);
+
+  --success: #67e19f;
+  --error: #f56d5d;
+  --warning: #d1bc00;
+
+  --border-color: #27272a;
+  --border-strong: rgba(238, 238, 238, 0.22);
   --hover-bg: rgba(255, 255, 255, 0.05);
 
-  --mesh-color-1: rgba(123, 104, 238, 0.2);
-  --mesh-color-2: rgba(72, 61, 139, 0.15);
+  --font-sans: "Geist", system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-pixel: "Geist Pixel", ui-monospace, monospace;
 
-  --glow-color: rgba(139, 92, 246, 0.3);
-  --top-glow-color: rgba(255, 255, 255, 0.08);
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.5rem;
+  --text-5xl: 3.25rem;
+  --text-6xl: 4.5rem;
 
   --contrib-level-0: var(--bg-color-muted);
   --contrib-level-1: #0e4429;
@@ -20,16 +44,32 @@
   --contrib-level-3: #26a641;
   --contrib-level-4: #39d353;
 
-  --font-sans: "Source Sans Pro", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
-    Cantarell, sans-serif;
-  --font-mono: "Roboto Mono", Consolas, "Courier New", monospace;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
 
   --transition-base: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bloom: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+
+  --content-width: 42rem;
+  --page-gutter: 1.5rem;
 }
 
-/* Theme Transitions */
-.theme-transition {
-  --theme-transition: var(--transition-base);
+@font-face {
+  font-family: "Geist Pixel";
+  src: url("/fonts/GeistPixel-Square.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
 .theme-transition button,
@@ -38,26 +78,10 @@
 .theme-transition select,
 .theme-transition pre,
 .theme-transition code,
-.theme-transition blockquote,
-.theme-transition .card {
-  transition: background-color var(--theme-transition), border-color var(--theme-transition),
-    box-shadow var(--theme-transition);
-}
-
-/* Remove transition from text color changes */
-.theme-transition * {
-  transition-property: background-color, border-color, box-shadow;
-  transition-duration: var(--theme-transition);
-}
-
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+.theme-transition blockquote {
+  transition:
+    background-color var(--transition-base),
+    border-color var(--transition-base),
+    box-shadow var(--transition-base),
+    color var(--transition-base);
 }

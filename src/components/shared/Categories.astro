@@ -10,7 +10,7 @@ const { categories, currentPath, plural, basePath } = Astro.props;
 ---
 
 <div class="categories">
-  <a href={`/${basePath}`} class:list={["category-link", { active: currentPath === `/${basePath}` }]}> All </a>
+  <a href={`/${basePath}`} class:list={["category-link", { active: currentPath === `/${basePath}` }]}>All</a>
   {
     categories.map((category) => (
       <a
@@ -28,24 +28,30 @@ const { categories, currentPath, plural, basePath } = Astro.props;
     display: flex;
     gap: 0.5rem;
     flex-wrap: wrap;
-    margin-bottom: 2rem;
+    margin-bottom: var(--space-6);
   }
 
   .category-link {
-    color: var(--text-muted);
-    font-size: var(--text-sm);
+    color: var(--text-faint);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
     border: 1px solid var(--border-color);
-    padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
+    padding: 0.35rem 0.7rem;
+    border-radius: 0;
     text-decoration: none;
     transition:
       background var(--transition-base),
-      color var(--transition-base);
+      color var(--transition-base),
+      border-color var(--transition-base);
   }
 
   .category-link:hover,
   .category-link.active {
-    background: var(--hover-bg);
+    background: var(--accent-soft);
+    border-color: var(--accent);
     color: var(--text-color);
+    text-shadow: none;
   }
 </style>

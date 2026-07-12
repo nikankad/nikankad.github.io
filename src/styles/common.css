@@ -12,7 +12,7 @@
 
 .content-grid {
   display: grid;
-  gap: 2rem;
+  gap: var(--space-6);
 }
 
 .flow > * + * {
@@ -21,7 +21,7 @@
 
 .prose {
   max-width: 65ch;
-  line-height: 1.7;
+  line-height: 1.75;
 }
 
 .prose > * + * {
@@ -35,4 +35,3 @@
 .prose h3 {
   margin-top: 2rem;
 }
-
