@@ -158,10 +158,10 @@ const featuredProjects = projects
 
   .hero-globe {
     position: absolute;
-    right: var(--space-4);
-    bottom: var(--space-4);
-    width: min(52%, 20rem);
-    height: min(52%, 20rem);
+    right: var(--space-3);
+    bottom: var(--space-3);
+    width: min(68%, 28rem);
+    height: min(68%, 28rem);
   }
 
   .hero-globe :global(canvas) {
@@ -194,10 +194,10 @@ const featuredProjects = projects
 
   .hero-bloom {
     position: absolute;
-    right: 0;
-    bottom: 0;
-    width: 55%;
-    height: 55%;
+    right: var(--space-3);
+    bottom: var(--space-3);
+    width: min(68%, 28rem);
+    height: min(68%, 28rem);
     background: radial-gradient(ellipse at center, rgba(52, 166, 255, 0.28), transparent 70%);
     filter: blur(28px);
     pointer-events: none;
@@ -367,10 +367,17 @@ const featuredProjects = projects
     }
 
     .hero-globe {
-      right: -10%;
-      bottom: -14%;
-      width: min(88%, 20rem);
-      height: min(78%, 18rem);
+      right: var(--space-2);
+      bottom: var(--space-2);
+      width: min(64%, 17rem);
+      height: min(64%, 17rem);
+    }
+
+    .hero-bloom {
+      right: var(--space-2);
+      bottom: var(--space-2);
+      width: min(64%, 17rem);
+      height: min(64%, 17rem);
     }
 
     .hero-portrait {
