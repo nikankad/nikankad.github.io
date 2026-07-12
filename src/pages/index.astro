@@ -40,7 +40,9 @@ const featuredProjects = projects
   <Container>
     <section class="hero" aria-label="Introduction">
       <div class="hero-field" aria-hidden="true">
-        <HeroGlobe client:load />
+        <div class="hero-globe">
+          <HeroGlobe client:load />
+        </div>
         <div class="hero-field-overlay"></div>
         <div class="hero-bloom bloom-pulse"></div>
       </div>
@@ -155,6 +157,20 @@ const featuredProjects = projects
     overflow: hidden;
   }
 
+  .hero-globe {
+    position: absolute;
+    right: -6%;
+    bottom: -10%;
+    width: min(72%, 28rem);
+    height: min(82%, 26rem);
+  }
+
+  .hero-globe :global(canvas) {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
   .hero-field {
     position: absolute;
     inset: 0;
@@ -163,12 +179,6 @@ const featuredProjects = projects
     background-color: #08080a;
     overflow: hidden;
     pointer-events: none;
-  }
-
-  .hero-field :global(canvas) {
-    display: block;
-    width: 100% !important;
-    height: 100% !important;
   }
 
   .hero-field-overlay {
@@ -185,7 +195,9 @@ const featuredProjects = projects
 
   .hero-bloom {
     position: absolute;
-    inset: 10% 15% auto;
+    right: 0;
+    bottom: 0;
+    width: 55%;
     height: 55%;
     background: radial-gradient(ellipse at center, rgba(52, 166, 255, 0.28), transparent 70%);
     filter: blur(28px);
@@ -356,6 +368,13 @@ const featuredProjects = projects
       min-height: 24rem;
       padding: var(--space-5) var(--space-4) var(--space-5);
       margin-bottom: var(--space-6);
+    }
+
+    .hero-globe {
+      right: -10%;
+      bottom: -14%;
+      width: min(88%, 20rem);
+      height: min(78%, 18rem);
     }
 
     .hero-portrait {
