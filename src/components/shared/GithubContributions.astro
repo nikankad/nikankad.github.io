@@ -197,10 +197,8 @@ const { username } = Astro.props;
     padding: 1rem;
     border: 1px solid var(--border-color);
     background:
-      radial-gradient(ellipse at 50% 100%, rgba(46, 160, 67, 0.2), transparent 58%),
       linear-gradient(180deg, rgba(13, 13, 15, 0.72), rgba(8, 8, 10, 0.98)),
       repeating-linear-gradient(90deg, transparent 0 7px, rgba(238, 238, 238, 0.02) 7px 8px);
-    box-shadow: 0 0 34px rgba(46, 160, 67, 0.08);
   }
 
   .contrib-grid::before {
@@ -223,13 +221,13 @@ const { username } = Astro.props;
     background:
       conic-gradient(
         from var(--contrib-glow-angle),
-        transparent 0deg 78deg,
-        rgba(57, 211, 83, 0.14) 92deg,
-        rgba(57, 211, 83, 0.95) 112deg,
-        rgba(57, 211, 83, 0.14) 132deg,
-        transparent 148deg 360deg
+        transparent 0deg 74deg,
+        rgba(46, 160, 67, 0.12) 90deg,
+        rgba(46, 160, 67, 0.9) 112deg,
+        rgba(46, 160, 67, 0.12) 134deg,
+        transparent 150deg 360deg
       );
-    filter: drop-shadow(0 0 14px rgba(57, 211, 83, 0.5));
+    filter: drop-shadow(0 0 22px rgba(46, 160, 67, 0.55));
     -webkit-mask:
       linear-gradient(#000 0 0) content-box,
       linear-gradient(#000 0 0);
