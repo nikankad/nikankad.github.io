@@ -1,4 +1,6 @@
 ---
+import HeroGlobe from "../HeroGlobe";
+
 interface Props {
   title: string;
   description: string;
@@ -8,23 +10,86 @@ const { title, description } = Astro.props;
 ---
 
 <section class="page-hero">
-  <h1>{title}</h1>
-  {description && <p class="subtitle">{description}</p>}
+  <div class="page-hero-field" aria-hidden="true">
+    <div class="page-hero-globe">
+      <HeroGlobe client:idle />
+    </div>
+  </div>
+
+  <div class="page-hero-copy">
+    <h1>{title}</h1>
+    {description && <p class="subtitle">{description}</p>}
+  </div>
 </section>
 
 <style>
   .page-hero {
+    position: relative;
+    min-height: 9rem;
+    display: flex;
+    align-items: flex-end;
     padding: var(--space-4) 0 var(--space-6);
     margin-bottom: var(--space-4);
     border-bottom: 1px solid var(--border-color);
+    overflow: visible;
+  }
+
+  .page-hero-field {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: visible;
+  }
+
+  /* Globe blooms from the top-right whitespace beside the short title,
+     bleeding up and off the right edge so it never sits over the list below. */
+  .page-hero-globe {
+    position: absolute;
+    top: -62%;
+    right: 0;
+    width: min(78%, 34rem);
+    height: 185%;
+    overflow: visible;
+    opacity: 0.6;
+    /* Fade the globe out toward the bottom so it never competes with the
+       list content that begins just below the hero. */
+    -webkit-mask-image: linear-gradient(to bottom, #000 48%, transparent 86%);
+    mask-image: linear-gradient(to bottom, #000 48%, transparent 86%);
+  }
+
+  .page-hero-globe :global(canvas) {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    transform: translate(20%, 0);
+    filter: blur(2px);
+  }
+
+  .page-hero-copy {
+    position: relative;
+    z-index: 1;
   }
 
   .page-hero h1 {
     margin-bottom: 0;
     font-size: clamp(2rem, 6vw, var(--text-5xl));
+    text-shadow: 0 0 24px rgba(13, 13, 15, 0.85);
   }
 
   .page-hero .subtitle {
     margin-top: var(--space-3);
+    text-shadow: 0 0 18px rgba(13, 13, 15, 0.85);
+  }
+
+  @media (max-width: 640px) {
+    .page-hero {
+      min-height: 7.5rem;
+    }
+
+    .page-hero-globe {
+      width: min(85%, 20rem);
+      opacity: 0.4;
+    }
   }
 </style>
