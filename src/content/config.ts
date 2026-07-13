@@ -25,6 +25,7 @@ const experience = defineCollection({
         title: z.string(),
         logo: z.string(),
         description: z.string(),
+        url: z.string().url().optional(),
         startDate: z.coerce.date(),
         endDate: z.coerce.date().optional(),
         current: z.boolean().optional().default(false),

@@ -30,7 +30,13 @@ const sortedExperiences = experiences.sort(
             <div class="title-row">
               <div class="company-info">
                 <img src={exp.data.logo} alt="" class="company-logo" loading="lazy" />
-                <span>{exp.data.title}</span>
+                {exp.data.url ? (
+                  <a href={exp.data.url} target="_blank" rel="noopener noreferrer">
+                    {exp.data.title}
+                  </a>
+                ) : (
+                  <span>{exp.data.title}</span>
+                )}
               </div>
               <time>
                 {formatDateShort(exp.data.startDate)} -{" "}
@@ -60,6 +66,14 @@ const sortedExperiences = experiences.sort(
     gap: 0.75rem;
     color: var(--text-color);
     font-weight: 500;
+  }
+
+  .company-info a {
+    color: inherit;
+  }
+
+  .company-info a:hover {
+    color: var(--accent);
   }
 
   time {
