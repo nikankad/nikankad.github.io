@@ -20,7 +20,7 @@ const { Content } = await render(post);
 
 <BaseLayout title={post.data.title} description={post.data.description} includeKatex={true}>
   <Container>
-    <BaseHero title={post.data.title} description={post.data.description} />
+    <BaseHero title={post.data.title} description="" />
     <article class="post">
       <header>
         <time datetime={post.data.publishedAt.toISOString()}>

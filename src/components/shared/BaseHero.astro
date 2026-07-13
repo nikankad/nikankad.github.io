@@ -46,10 +46,10 @@ const { title, description } = Astro.props;
      bleeding up and off the right edge so it never sits over the list below. */
   .page-hero-globe {
     position: absolute;
-    top: -28%;
+    top: -2.5rem;
     right: 0;
     width: min(78%, 34rem);
-    height: 150%;
+    height: 13.5rem;
     overflow: visible;
     opacity: 0.6;
     /* Fade the globe out toward the bottom so it never competes with the
@@ -88,7 +88,9 @@ const { title, description } = Astro.props;
     }
 
     .page-hero-globe {
+      top: -2rem;
       width: min(85%, 20rem);
+      height: 11rem;
       opacity: 0.4;
     }
   }
