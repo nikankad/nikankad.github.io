@@ -8,7 +8,7 @@ export default function HeroGlobe() {
       rotationSpeed={0.0009}
       tilt={[34, -18]}
       radius={12}
-      cameraDistance={24}
+      cameraDistance={30}
       chars="*"
       atmosphere
       atmosphereOpacity={0.2}
