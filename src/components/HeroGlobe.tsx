@@ -5,7 +5,7 @@ export default function HeroGlobe() {
     <DotGlobe
       backgroundOpacity={0}
       backgroundColor={0x0d0d0f}
-      rotationSpeed={0.0003}
+      rotationSpeed={0.0009}
       tilt={[20, -18]}
       radius={12}
       cameraDistance={24}
