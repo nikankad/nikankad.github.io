@@ -128,9 +128,9 @@ const featuredProjects = projects
       </div>
     </section>
 
-    <section class="section github-section" aria-label="GitHub activity">
+    <!-- <section class="section github-section" aria-label="GitHub activity">
       <GithubContributions username={githubUsername} />
-    </section>
+    </section> -->
 
     <section class="section contact">
       <div class="section-header">
@@ -149,7 +149,7 @@ const featuredProjects = projects
     display: grid;
     align-content: end;
     gap: var(--space-5);
-    padding: var(--space-2) var(--space-6) var(--space-6);
+    padding: var(--space-2) 0 var(--space-6);
     margin-bottom: var(--space-6);
     overflow: visible;
     background: transparent;
@@ -351,7 +351,7 @@ const featuredProjects = projects
   @media (max-width: 640px) {
     .hero {
       min-height: 24rem;
-      padding: var(--space-5) var(--space-4) var(--space-5);
+      padding: var(--space-5) 0 var(--space-5);
       margin-bottom: var(--space-6);
     }
 
