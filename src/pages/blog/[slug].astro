@@ -2,6 +2,8 @@
 import { getCollection, render } from "astro:content";
 import type { GetStaticPaths } from "astro";
 import BaseLayout from "../../components/layout/BaseLayout.astro";
+import BaseHero from "../../components/shared/BaseHero.astro";
+import Container from "../../components/ui/Container.astro";
 import { formatDate } from "../../utils/date";
 
 export const getStaticPaths = (async () => {
@@ -17,26 +19,28 @@ const { Content } = await render(post);
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description} includeKatex={true}>
-  <article class="post">
-    <header>
-      <h1>{post.data.title}</h1>
-      <time datetime={post.data.publishedAt.toISOString()}>
-        {formatDate(post.data.publishedAt)}
-      </time>
-      {
-        post.data.tags && (
-          <div class="tags">
-            {post.data.tags.map((tag) => (
-              <span class="tag">{tag}</span>
-            ))}
-          </div>
-        )
-      }
-    </header>
-    <div class="content">
-      <Content />
-    </div>
-  </article>
+  <Container>
+    <BaseHero title={post.data.title} description={post.data.description} />
+    <article class="post">
+      <header>
+        <time datetime={post.data.publishedAt.toISOString()}>
+          {formatDate(post.data.publishedAt)}
+        </time>
+        {
+          post.data.tags && (
+            <div class="tags">
+              {post.data.tags.map((tag) => (
+                <span class="tag">{tag}</span>
+              ))}
+            </div>
+          )
+        }
+      </header>
+      <div class="content">
+        <Content />
+      </div>
+    </article>
+  </Container>
 </BaseLayout>
 
 <style>
@@ -48,11 +52,6 @@ const { Content } = await render(post);
     margin-bottom: var(--space-6);
     padding-bottom: var(--space-5);
     border-bottom: 1px solid var(--border-color);
-  }
-
-  article.post h1 {
-    margin-bottom: var(--space-3);
-    font-size: clamp(1.75rem, 5vw, var(--text-4xl));
   }
 
   article.post time {
