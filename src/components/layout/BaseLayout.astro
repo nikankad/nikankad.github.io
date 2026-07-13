@@ -17,7 +17,6 @@ interface Props {
   description: string;
   image?: string;
   canonicalURL?: string;
-  includeKatex?: boolean;
 }
 
 const {
@@ -25,7 +24,6 @@ const {
   description,
   image = "/default-og-image.jpg",
   canonicalURL = Astro.url,
-  includeKatex = false,
 } = Astro.props;
 ---
 
@@ -58,17 +56,6 @@ const {
 
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
-    {
-      includeKatex && (
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
-          integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV"
-          crossorigin="anonymous"
-          fetchpriority="low"
-        />
-      )
-    }
     <script is:inline>
       document.documentElement.setAttribute("data-theme", "dark");
       document.addEventListener("DOMContentLoaded", () => {
