@@ -4,7 +4,8 @@ import type { CollectionEntry } from "astro:content";
 import BaseLayout from "../components/layout/BaseLayout.astro";
 import ContentList from "../components/shared/ContentList.astro";
 import Container from "../components/ui/Container.astro";
-import HeroGlobe from "../components/HeroGlobe.astro";
+import GithubContributions from "../components/shared/GithubContributions.astro";
+import HeroGlobe from "../components/HeroGlobe";
 import { formatDateShort } from "../utils/date";
 
 const siteConfig = await getEntry("site", "home");
@@ -13,6 +14,9 @@ if (!siteConfig) {
 }
 
 const site = siteConfig.data;
+
+const githubUrl = site.socialLinks?.find((link) => link.platform === "GitHub")?.url ?? "https://github.com/nikankad";
+const githubUsername = githubUrl.replace(/\/+$/, "").split("/").pop() ?? "nikankad";
 
 const experiences = await getCollection("experience");
 const sortedExperiences = experiences.sort(
@@ -37,7 +41,7 @@ const featuredProjects = projects
     <section class="hero" aria-label="Introduction">
       <div class="hero-field" aria-hidden="true">
         <div class="hero-globe">
-          <HeroGlobe />
+          <HeroGlobe client:load />
         </div>
       </div>
 
@@ -124,6 +128,10 @@ const featuredProjects = projects
       </div>
     </section>
 
+    <!-- <section class="section github-section" aria-label="GitHub activity">
+      <GithubContributions username={githubUsername} />
+    </section> -->
+
     <section class="section contact">
       <div class="section-header">
         <h2>Contact</h2>
@@ -151,8 +159,8 @@ const featuredProjects = projects
     position: absolute;
     right: 0;
     bottom: 0;
-    width: min(142%, 82rem);
-    height: 190%;
+    width: min(112%, 64rem);
+    height: 150%;
     overflow: visible;
   }
 
@@ -350,12 +358,12 @@ const featuredProjects = projects
     .hero-globe {
       right: 0;
       bottom: 0;
-      width: min(115%, 30rem);
-      height: 128%;
+      width: min(90%, 24rem);
+      height: 100%;
     }
 
     .hero-globe :global(canvas) {
-      transform: translate(8%, 6%);
+      transform: translate(10%, 8%);
     }
 
     .hero-portrait {

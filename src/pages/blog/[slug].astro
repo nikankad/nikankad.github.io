@@ -18,7 +18,7 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 ---
 
-<BaseLayout title={post.data.title} description={post.data.description}>
+<BaseLayout title={post.data.title} description={post.data.description} includeKatex={true}>
   <Container>
     <BaseHero title={post.data.title} description="" />
     <article class="post">
